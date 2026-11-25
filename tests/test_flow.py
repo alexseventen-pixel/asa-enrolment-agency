@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from asa import db  # noqa: E402
 from asa.agents import accountant, applications, reminders, support  # noqa: E402
 from asa.demo import load_demo  # noqa: E402
+import asgi  # noqa: E402,F401  (the web app must import)
 
 
 def test_flow():
