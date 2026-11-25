@@ -1,4 +1,4 @@
-"""SQLite store. Single source of truth for the ledger, dashboard and chat."""
+"""SQLite store shared by the 4 agents, the dashboard and the landing page."""
 from __future__ import annotations
 
 import sqlite3
@@ -9,64 +9,38 @@ import pandas as pd
 from .config import DB_PATH, STATE, ts
 
 SCHEMA = """
-CREATE TABLE IF NOT EXISTS tasks (
-    task_id TEXT PRIMARY KEY,
-    timestamp TEXT NOT NULL,
-    assigned_by TEXT NOT NULL,
-    agent_name TEXT NOT NULL,
-    title TEXT NOT NULL,
-    task_description TEXT NOT NULL,
-    kind TEXT NOT NULL,
-    priority TEXT NOT NULL DEFAULT 'Medium',
-    deadline TEXT,
-    status TEXT NOT NULL DEFAULT 'Queued',
-    output_link TEXT DEFAULT '',
-    blocked_reason TEXT DEFAULT '',
-    started_at TEXT DEFAULT '',
-    completion_time TEXT DEFAULT ''
+CREATE TABLE IF NOT EXISTS students (
+    application_id TEXT PRIMARY KEY, created_at TEXT, child_name TEXT, age INTEGER, grade TEXT,
+    parent_name TEXT, parent_email TEXT, parent_phone TEXT, days TEXT, notes TEXT,
+    consent_photo TEXT, source TEXT, label TEXT
 );
-CREATE TABLE IF NOT EXISTS task_events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    task_id TEXT, timestamp TEXT, status TEXT, note TEXT
-);
-CREATE TABLE IF NOT EXISTS applications (
-    application_id TEXT PRIMARY KEY, child_ref TEXT, program TEXT, chinese_level TEXT DEFAULT '',
-    submitted_at TEXT, child_name TEXT, age INTEGER,
-    grade INTEGER, parent_name TEXT, parent_email TEXT, parent_phone TEXT,
-    availability TEXT, experience TEXT, consent_data TEXT, consent_photo TEXT,
-    source TEXT, data_label TEXT, band TEXT DEFAULT '', status TEXT DEFAULT 'New',
-    qa_flags TEXT DEFAULT '', group_id TEXT DEFAULT ''
-);
-CREATE TABLE IF NOT EXISTS groups (
-    group_id TEXT PRIMARY KEY, program TEXT, band TEXT, day TEXT, time TEXT, capacity INTEGER
-);
-CREATE TABLE IF NOT EXISTS messages (
-    message_id TEXT PRIMARY KEY, received_at TEXT, from_email TEXT, subject TEXT,
-    body TEXT, data_label TEXT, program TEXT DEFAULT '', category TEXT DEFAULT '', priority TEXT DEFAULT '',
-    status TEXT DEFAULT 'New', draft_reply TEXT DEFAULT ''
-);
-CREATE TABLE IF NOT EXISTS posts (
-    post_id TEXT PRIMARY KEY, created_at TEXT, program TEXT DEFAULT '', platform TEXT, title TEXT, body TEXT,
-    status TEXT DEFAULT 'Draft', file TEXT DEFAULT ''
+CREATE TABLE IF NOT EXISTS enrolments (
+    enrolment_id TEXT PRIMARY KEY, application_id TEXT, program TEXT, level TEXT, band TEXT,
+    group_id TEXT DEFAULT '', status TEXT, reminders_sent INTEGER DEFAULT 0, updated_at TEXT
 );
 CREATE TABLE IF NOT EXISTS emails (
-    email_id TEXT PRIMARY KEY, created_at TEXT, program TEXT DEFAULT '', kind TEXT, to_addr TEXT, subject TEXT,
-    file TEXT, status TEXT DEFAULT 'Draft (not sent)'
+    email_id TEXT PRIMARY KEY, created_at TEXT, agent TEXT, kind TEXT, application_id TEXT,
+    to_addr TEXT, subject TEXT, html TEXT, file TEXT, status TEXT
 );
-CREATE TABLE IF NOT EXISTS attendance (
-    group_id TEXT, program TEXT, lesson_no INTEGER, lesson_date TEXT, enrolled INTEGER,
-    present INTEGER, data_label TEXT, PRIMARY KEY (group_id, lesson_no)
+CREATE TABLE IF NOT EXISTS invoices (
+    invoice_no TEXT PRIMARY KEY, issued_at TEXT, application_id TEXT, enrolment_id TEXT, program TEXT,
+    period TEXT, amount REAL, status TEXT, paid_at TEXT DEFAULT ''
 );
-CREATE TABLE IF NOT EXISTS chat_history (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, timestamp TEXT, channel TEXT,
-    role TEXT, content TEXT
+CREATE TABLE IF NOT EXISTS ledger (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT, agent TEXT, action TEXT, result TEXT
+);
+CREATE TABLE IF NOT EXISTS chats (
+    session_id TEXT PRIMARY KEY, state TEXT, updated_at TEXT
+);
+CREATE TABLE IF NOT EXISTS chat_messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, time TEXT, role TEXT, text TEXT
 );
 """
 
 
 def connect() -> sqlite3.Connection:
     STATE.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(DB_PATH)
+    con = sqlite3.connect(DB_PATH, timeout=10)
     con.row_factory = sqlite3.Row
     con.executescript(SCHEMA)
     return con
@@ -87,14 +61,17 @@ def df(sql: str, params: tuple = ()) -> pd.DataFrame:
         return pd.read_sql_query(sql, con, params=params)
 
 
-def next_id(con: sqlite3.Connection, table: str, col: str, prefix: str) -> str:
-    row = con.execute(f"SELECT {col} FROM {table} WHERE {col} LIKE ? ORDER BY {col} DESC LIMIT 1",
-                      (prefix + "%",)).fetchone()
+def next_id(con, table: str, col: str, prefix: str, width: int = 4) -> str:
+    row = con.execute(f"SELECT {col} FROM {table} WHERE {col} LIKE ? ORDER BY {col} DESC LIMIT 1", (prefix + "%",)).fetchone()
     n = int(row[0][len(prefix):]) + 1 if row else 1
-    return f"{prefix}{n:04d}"
+    return f"{prefix}{n:0{width}d}"
 
 
-def save_chat(channel: str, role: str, content: str) -> None:
+def log(agent: str, action: str, result: str) -> None:
+    """The ledger: time, agent, action, result."""
     with session() as con:
-        con.execute("INSERT INTO chat_history (timestamp, channel, role, content) VALUES (?,?,?,?)",
-                    (ts(), channel, role, content))
+        con.execute("INSERT INTO ledger (time, agent, action, result) VALUES (?,?,?,?)", (ts(), agent, action, result))
+
+
+def reset() -> None:
+    DB_PATH.unlink(missing_ok=True)

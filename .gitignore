@@ -1,7 +1,8 @@
 .venv/
 __pycache__/
-state/*.db
+*.pyc
 .env
 secrets/
-*.pyc
-state/*.csv
+state/
+outbox/
+.pytest_cache/

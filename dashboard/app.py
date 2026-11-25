@@ -1,215 +1,191 @@
-"""Boss Command Center for the ASA Enrolment Agency (AI + Chinese).
-
-Run:  streamlit run dashboard/app.py
-Login (only if ASA_REQUIRE_LOGIN=yes): ASA_BOSS_USER / ASA_BOSS_PASSWORD env vars (demo defaults: boss / change-me-demo).
-Modules: A) Task assignment  B) Live task board  C) Reports  D) Chat  E) Employees
-"""
+"""ASA Enrolment Agency dashboard: 4 agents, one tab each, plus Outbox and Ledger.
+Login only if ASA_REQUIRE_LOGIN=yes (ASA_BOSS_USER / ASA_BOSS_PASSWORD)."""
 from __future__ import annotations
 
-import hmac
-import io
 import os
 import sys
+import uuid
 from pathlib import Path
 
-import pandas as pd
-import plotly.express as px
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from asa.agents.project_manager import plan_day, process_queue  # noqa: E402
-from asa.chat import answer  # noqa: E402
-from asa.config import AGENCY_NAME, EMPLOYEES, EMPLOYEE_NAMES, PROGRAMS, WORK, SYNTHETIC_LABEL, now  # noqa: E402
-from asa.db import df  # noqa: E402
-from asa.kpis import agency_kpis, attendance_rate, funnel, group_fill, per_employee  # noqa: E402
-from asa.ledger import PRIORITIES, STATUSES, create_task  # noqa: E402
+
+from asa import db  # noqa: E402
+from asa.agents import accountant, applications, reminders, support  # noqa: E402
+from asa.config import AGENCY_NAME, CURRENCY, DAY_NAMES, DAYS, GROUPS, LEVELS, PRICE_NOTE, PRICES, PROGRAMS, TIMETABLE_NOTE  # noqa: E402
+from asa.demo import load_demo  # noqa: E402
 
 st.set_page_config(page_title=AGENCY_NAME, page_icon="🎓", layout="wide")
-USER = os.environ.get("ASA_BOSS_USER", "boss")
-PASSWORD = os.environ.get("ASA_BOSS_PASSWORD", "change-me-demo")
-SHEET_URL = os.environ.get("ASA_SHEET_URL", "")
-
 
 REQUIRE_LOGIN = os.environ.get("ASA_REQUIRE_LOGIN", "no").lower() in ("1", "yes", "true")
-
-
-def login() -> bool:
-    if not REQUIRE_LOGIN or st.session_state.get("auth"):
-        return True
-    st.title(f"🎓 {AGENCY_NAME}")
-    st.caption("Boss Command Center. Only the Boss can sign in.")
+if REQUIRE_LOGIN and not st.session_state.get("auth"):
     with st.form("login"):
-        u = st.text_input("Username")
-        p = st.text_input("Password", type="password")
+        st.subheader("Sign in")
+        u, p = st.text_input("Username"), st.text_input("Password", type="password")
         if st.form_submit_button("Sign in"):
-            if hmac.compare_digest(u, USER) and hmac.compare_digest(p, PASSWORD):
+            if u == os.environ.get("ASA_BOSS_USER", "boss") and p == os.environ.get("ASA_BOSS_PASSWORD", "change-me-demo"):
                 st.session_state.auth = True
                 st.rerun()
             st.error("Wrong username or password")
-    return False
-
-
-if not login():
     st.stop()
 
+# ---------- sidebar ----------
 with st.sidebar:
-    st.header("🎓 ASA Agency")
-    st.caption(f"{now():%d %b %Y %H:%M} Riga")
-    st.warning(SYNTHETIC_LABEL + ". Rows with source 'Web form' are real landing page submissions.")
-    st.link_button("Open public application form", "/apply")
-    if SHEET_URL:
-        st.link_button("Open Google Sheet ledger", SHEET_URL)
-    if st.button("▶ Run agency day (PM plans 13 tasks)"):
-        plan_day("Boss (dashboard)")
-        log = []
-        process_queue(log=log.append)
-        st.success(f"Processed {len(log)} tasks")
-    if st.button("⚙ Process queued tasks"):
-        log = []
-        process_queue(log=log.append)
-        st.success(f"Processed {len(log)} tasks")
-    if REQUIRE_LOGIN and st.button("Sign out"):
-        st.session_state.auth = False
-        st.rerun()
+    st.header("🎓 " + AGENCY_NAME)
+    st.caption("AI Club and Chinese classes, International School Premjers")
+    st.markdown("**4 agents**\n1. Applications\n2. Support\n3. Reminders\n4. Accountant")
+    st.link_button("Open the public application page", "/apply")
+    st.divider()
+    if st.button("Load demo data (6 synthetic students)"):
+        ids = load_demo()
+        db.log("System", "Loaded demo data", f"{len(ids)} synthetic applications: {', '.join(ids)}")
+        st.success("Demo data loaded.")
+    if st.button("Reset everything"):
+        db.reset()
+        st.success("Database cleared.")
+    st.caption("Emails are drafts only: sending is switched off. Prices and timetable are placeholders, to be confirmed.")
 
-k = agency_kpis()
-st.title(AGENCY_NAME)
-cols = st.columns(8)
-for c, (label, v) in zip(cols, [("Requests", k["applications_total"]), ("AI Club", k["requests_ai"]),
-                                ("Chinese", k["requests_chinese"]), ("Placed", k["placed"]), ("In both", k["children_in_both"]),
-                                ("Waitlist", k["waitlist"]), ("Group fill", f"{k['group_fill_pct']}%"),
-                                ("Attendance", f"{k['attendance_pct']}%")]):
-    c.metric(label, v)
+students = db.df("SELECT * FROM students")
+enr = db.df("SELECT e.*, s.child_name, s.parent_email FROM enrolments e JOIN students s USING (application_id)")
+s = accountant.summary()
+c = st.columns(5)
+c[0].metric("Students", s["students"])
+c[1].metric("Active enrolments", s["total"]["active"])
+c[2].metric("Waiting list", s["total"]["waitlist"])
+c[3].metric(f"Invoiced, {CURRENCY}", f"{s['total']['invoiced']:.0f}")
+c[4].metric(f"Outstanding, {CURRENCY}", f"{s['total']['outstanding']:.0f}")
 
-tab_w, tab_a, tab_b, tab_c, tab_d, tab_e = st.tabs(["🌐 Web applications", "A · Assign task", "B · Task board", "C · Reports",
-                                                    "D · Chat", "E · Employees"])
 
-with tab_w:
-    st.subheader("Applications from the public landing page (/apply)")
-    w = df("SELECT a.child_ref AS 'Form ID', a.submitted_at AS 'Submitted', CASE a.program WHEN 'ZH' THEN 'Chinese' ELSE 'AI Club' END AS 'Program',"
-           " a.child_name AS 'Child', a.age AS 'Age', a.chinese_level AS 'Level', a.availability AS 'Days', a.status AS 'Status',"
-           " a.group_id AS 'Group', a.qa_flags AS 'QA flags', a.data_label AS 'Label' FROM applications a"
-           " WHERE a.source = 'Web form' ORDER BY a.submitted_at DESC, a.child_ref")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Web requests", len(w))
-    c2.metric("Placed", int((w["Group"] != "").sum()) if len(w) else 0)
-    c3.metric("Test submissions", int((w["Label"] == "TEST SUBMISSION").sum()) if len(w) else 0)
-    if len(w):
-        st.dataframe(w, hide_index=True, width="stretch")
-    else:
-        st.info("No web submissions yet. Share the form link: /apply")
-    st.caption("Each submission triggers Intake, QA, Scheduler, Communications (draft email only) and Analyst tasks in the ledger, assigned by 'Web form'.")
+def agent_log(agent: str, kind: str | None = None):
+    st.markdown("**Agent log**")
+    st.dataframe(db.df("SELECT time, action, result FROM ledger WHERE agent = ? ORDER BY id DESC LIMIT 30", (agent,)),
+                 hide_index=True, width="stretch")
+    if kind:
+        st.markdown(f"**{kind} emails (drafts)**")
+        em = db.df("SELECT email_id, created_at, to_addr, subject, status, html FROM emails WHERE kind = ? ORDER BY email_id DESC", (kind,))
+        st.dataframe(em.drop(columns="html"), hide_index=True, width="stretch")
+        if len(em):
+            pick = st.selectbox("Preview an email", em["email_id"], key=f"pv-{agent}")
+            st.html(em.set_index("email_id").loc[pick, "html"])
 
-with tab_a:
-    st.subheader("Assign a task to the Project Manager or any employee")
-    with st.form("assign", clear_on_submit=True):
-        c1, c2 = st.columns(2)
-        title = c1.text_input("Title")
-        agent = c2.selectbox("Employee", EMPLOYEE_NAMES)
-        desc = st.text_area("Description")
-        c3, c4 = st.columns(2)
-        prio = c3.selectbox("Priority", PRIORITIES, index=1)
-        due = c4.date_input("Deadline")
-        go = st.form_submit_button("Assign")
-    if go and title:
-        tid = create_task(agent, title, desc or title, "freeform", prio, "Boss (dashboard)", str(due))
-        st.success(f"{tid} queued for {agent}. Logged to the ledger.")
-        if st.checkbox("Let the employee pick it up now", value=True):
-            process_queue(log=lambda m: st.code(m))
 
-with tab_b:
-    t = df("SELECT * FROM tasks ORDER BY task_id DESC")
-    f1, f2, f3, f4 = st.columns(4)
-    fe = f1.multiselect("Employee", EMPLOYEE_NAMES)
-    fs = f2.multiselect("Status", STATUSES)
-    fp = f3.multiselect("Priority", PRIORITIES)
-    fd = f4.date_input("Date", value=None)
-    v = t.copy()
-    if fe: v = v[v.agent_name.isin(fe)]
-    if fs: v = v[v.status.isin(fs)]
-    if fp: v = v[v.priority.isin(fp)]
-    if fd: v = v[v.timestamp.str[:10] == str(fd)]
-    c = st.columns(4)
-    for col, s in zip(c, STATUSES):
-        col.metric(s, int((t.status == s).sum()))
-    st.dataframe(v[["task_id", "timestamp", "assigned_by", "agent_name", "title", "priority", "status", "output_link",
-                    "completion_time", "deadline"]], width="stretch", hide_index=True)
-    pick = st.selectbox("Task details", v.task_id.tolist())
-    if pick:
-        r = t[t.task_id == pick].iloc[0]
-        st.json({k_: r[k_] for k_ in ["task_id", "agent_name", "title", "task_description", "priority", "status",
-                                       "blocked_reason", "output_link", "timestamp", "started_at", "completion_time", "deadline"]})
-        st.dataframe(df("SELECT timestamp, status, note FROM task_events WHERE task_id = ? ORDER BY id", (pick,)),
+tabs = st.tabs(["1. Applications", "2. Support", "3. Reminders", "4. Accountant", "Outbox", "Ledger"])
+
+# ---------- 1. Applications ----------
+with tabs[0]:
+    st.subheader("Applications agent")
+    st.caption("Saves every application (web form, chat or this form), places the child in a group by age or level and preferred days "
+               "(no two activities on one day), and immediately prepares the auto-reply confirmation email.")
+    with st.expander("Add an application by hand (for example from a phone call)"):
+        with st.form("manual"):
+            a, b, c3 = st.columns(3)
+            child, age = a.text_input("Child name"), b.number_input("Age", 7, 15, 9)
+            prog = c3.selectbox("Programme", ["AI", "Chinese", "both"])
+            level = a.selectbox("Chinese level (if Chinese)", LEVELS)
+            days = b.multiselect("Preferred days", DAYS, format_func=DAY_NAMES.get)
+            parent, email = c3.text_input("Parent name"), a.text_input("Parent email")
+            if st.form_submit_button("Save application"):
+                d = {"child_name": child, "age": age, "program": prog, "level": level, "days": days,
+                     "parent_name": parent, "parent_email": email, "consent": True}
+                err = applications.validate(d)
+                if err:
+                    st.error(" ".join(err))
+                else:
+                    r = applications.submit(d, source="Dashboard")
+                    st.success(f"Saved {r['application_id']}. Auto-reply {r['email_id']} prepared.")
+    if len(enr):
+        view = enr.copy()
+        view["programme"] = view["program"].map(PROGRAMS)
+        g = {x["group_id"]: f"{x['group_id']} {x['day']} {x['time']}" for x in GROUPS}
+        view["group"] = view["group_id"].map(g).fillna("")
+        view = view.merge(students[["application_id", "created_at", "source", "label"]], on="application_id")
+        st.dataframe(view[["application_id", "created_at", "child_name", "programme", "level", "band", "group", "status",
+                           "parent_email", "source", "label"]].sort_values("application_id", ascending=False),
                      hide_index=True, width="stretch")
-        out = WORK / str(r["output_link"])
-        if r["output_link"] and out.is_file():
-            st.code(out.read_text(errors="ignore")[:3000])
+        fill = enr[enr.status == "Active"].groupby("group_id").size()
+        st.markdown("**Group fill** (" + TIMETABLE_NOTE + ")")
+        st.dataframe([{"group": x["group_id"], "programme": PROGRAMS[x["program"]], "band": x["band"], "day": DAY_NAMES[x["day"]],
+                       "time": x["time"], "students": int(fill.get(x["group_id"], 0)), "capacity": x["capacity"]} for x in GROUPS],
+                     hide_index=True, width="stretch")
+    else:
+        st.info("No applications yet. Submit one on the public page (/apply) or click 'Load demo data' in the sidebar.")
+    agent_log("Applications", "Auto-reply")
 
-with tab_c:
-    prog = st.radio("Program", ["All", "AI Club", "Chinese"], horizontal=True)
-    pcode = {"AI Club": "AI", "Chinese": "ZH"}.get(prog)
-    c1, c2 = st.columns(2)
-    fn = funnel(pcode)
-    fdf = pd.DataFrame({"Stage": ["Applied", "Passed QA", "Placed in group", "Confirmation drafted"],
-                        "Count": [fn["Applied"], fn["Passed QA"], fn["Placed in group"], fn["Confirmation drafted"]]})
-    c1.plotly_chart(px.funnel(fdf, x="Count", y="Stage", title="Enrolment funnel"), width="stretch")
-    g = group_fill()
-    g["Program"] = g.program.map(PROGRAMS)
-    if pcode: g = g[g.program == pcode]
-    c2.plotly_chart(px.bar(g, x="group_id", y=["enrolled", "capacity"], barmode="group", title="Group fill vs capacity",
-                           hover_data=["band", "day", "time"]), width="stretch")
-    a = df("SELECT program, source, status, band, submitted_at FROM applications")
-    if pcode: a = a[a.program == pcode]
-    c3, c4 = st.columns(2)
-    c3.plotly_chart(px.pie(a, names="source", title="Where requests come from"), width="stretch")
-    a["day"] = a.submitted_at.str[:10]
-    daily = a.groupby(["day", "program"]).size().reset_index(name="requests")
-    daily["program"] = daily.program.map(PROGRAMS)
-    c4.plotly_chart(px.bar(daily, x="day", y="requests", color="program", title="Requests per day"), width="stretch")
-    att = attendance_rate()
-    if len(att):
-        if pcode: att = att[att.program == pcode]
-        st.plotly_chart(px.line(att, x="lesson_no", y="rate", color="group_id", markers=True,
-                                title="Attendance rate by lesson (sample registers)"), width="stretch")
-    st.subheader("Per-employee report")
-    pe = per_employee()
-    st.dataframe(pe, hide_index=True, width="stretch")
-    st.plotly_chart(px.bar(pe, x="Employee", y=["Completed", "In Progress", "Queued", "Blocked"], title="Tasks by employee"),
-                    width="stretch")
-    st.subheader("Agency summary")
-    wk = per_employee(7)
-    s1, s2 = st.columns(2)
-    s1.write("**Today**"); s1.json(k)
-    s2.write("**Last 7 days, completed tasks**"); s2.dataframe(wk[["Employee", "Completed", "Blocked"]], hide_index=True)
-    m = df("SELECT program, category, priority, status FROM messages")
-    st.plotly_chart(px.histogram(m, x="category", color="status", title="Parent inbox triage"), width="stretch")
-    st.download_button("⬇ Download task ledger (CSV)", df("SELECT * FROM tasks").to_csv(index=False), "ledger.csv")
-    st.download_button("⬇ Download enrolment requests (CSV)", a.to_csv(index=False), "requests.csv")
-    briefs = sorted((WORK / "reports").glob("daily_brief_*.html"))
-    if briefs:
-        st.download_button("⬇ Download latest daily brief (HTML)", briefs[-1].read_bytes(), briefs[-1].name)
-
-with tab_d:
-    who = st.selectbox("Chat with", EMPLOYEE_NAMES)
-    hist = df("SELECT role, content, timestamp FROM chat_history WHERE channel = ? ORDER BY id", (who,))
-    for r in hist.itertuples():
-        with st.chat_message("user" if r.role == "boss" else "assistant"):
-            st.write(r.content)
-    q = st.chat_input(f"Ask the {who}…")
-    if q:
-        answer(q, who)
+# ---------- 2. Support ----------
+with tabs[1]:
+    st.subheader("Support agent")
+    st.caption("Answers questions (prices, timetable, levels, ages, lessons), enrols a child step by step, and changes days, level "
+               "or cancels after checking email + application ID. The same assistant is on the public page.")
+    sid = st.session_state.setdefault("sid", "dash-" + uuid.uuid4().hex[:8])
+    for m in support.history(sid):
+        with st.chat_message("user" if m["role"] == "parent" else "assistant"):
+            st.markdown(m["text"])
+    if not support.history(sid):
+        st.caption("Try: 'how much does it cost?', 'enrol', or 'change days ASA-0002 demo.parent2@example.com'.")
+    msg = st.chat_input("Write as a parent...")
+    if msg:
+        support.reply(sid, msg)
         st.rerun()
+    if st.button("New conversation"):
+        st.session_state.sid = "dash-" + uuid.uuid4().hex[:8]
+        st.rerun()
+    agent_log("Support", "Change confirmation")
 
-with tab_e:
-    t = df("SELECT * FROM tasks")
-    today = now().strftime("%Y-%m-%d")
-    cols = st.columns(4)
-    for i, e in enumerate(EMPLOYEES):
-        mine = t[t.agent_name == e["name"]].sort_values("task_id")
-        active = mine[mine.status == "In Progress"]
-        current = active.iloc[-1].title if len(active) else (mine.iloc[-1].title if len(mine) else "none")
-        out_today = int(((mine.status == "Completed") & (mine.completion_time.str[:10] == today)).sum())
-        with cols[i % 4].container(border=True):
-            st.markdown(f"**{e['name']}**  \n{e['title']}")
-            st.write(("🟢 active" if len(active) else "⚪ idle") + f" · today's output: **{out_today}**")
-            st.caption(f"Current / last task: {current}")
+# ---------- 3. Reminders ----------
+with tabs[2]:
+    st.subheader("Reminders agent")
+    st.caption("Prepares a reminder email for every child with a lesson tomorrow: day, time, group and lesson topic. "
+               "Running it twice for the same day does not create duplicates.")
+    if st.button("Generate tomorrow's reminders", type="primary"):
+        r = reminders.run()
+        st.success(f"{r['day']} {r['date']}: {len(r['created'])} reminder(s) prepared, {r['skipped']} already done.")
+        if r["created"]:
+            st.dataframe(r["created"], hide_index=True, width="stretch")
+    agent_log("Reminders", "Reminder")
+
+# ---------- 4. Accountant ----------
+with tabs[3]:
+    st.subheader("Accountant agent")
+    st.caption(f"Issues one monthly invoice per active enrolment and emails it (draft). Fees: AI Club {PRICES['AI']:.0f} {CURRENCY}, "
+               f"Chinese {PRICES['ZH']:.0f} {CURRENCY}{PRICE_NOTE}.")
+    if st.button("Issue invoices for this month", type="primary"):
+        r = accountant.issue()
+        st.success(f"{r['period']}: {len(r['created'])} new invoice(s), {r['total']:.2f} {CURRENCY}.")
+        st.rerun()
+    st.markdown("**Summary by programme**")
+    st.dataframe(s["by_programme"] + [dict(programme="Total", **s["total"])], hide_index=True, width="stretch")
+    inv = accountant.invoices()
+    if len(inv):
+        inv["program"] = inv["program"].map(PROGRAMS)
+        st.dataframe(inv, hide_index=True, width="stretch")
+        a, b, c3 = st.columns(3)
+        pick = a.selectbox("Invoice", inv["invoice_no"])
+        row = inv.set_index("invoice_no").loc[pick]
+        if row["status"] == "Unpaid" and b.button("Mark paid"):
+            accountant.mark_paid(pick)
+            st.rerun()
+        if row["status"] == "Paid" and b.button("Mark unpaid"):
+            accountant.mark_paid(pick, False)
+            st.rerun()
+        c3.download_button("Download invoice (HTML, print to PDF)", accountant.invoice_html(pick), file_name=f"{pick}.html", mime="text/html")
+    else:
+        st.info("No invoices yet. Click 'Issue invoices for this month'.")
+    agent_log("Accountant", "Invoice")
+
+# ---------- Outbox ----------
+with tabs[4]:
+    st.subheader("Outbox: every email the agents prepared")
+    st.caption("Sending is switched off (ASA_ALLOW_SEND=no), so all emails stay as drafts here and as .eml files.")
+    em = db.df("SELECT email_id, created_at, agent, kind, application_id, to_addr, subject, status, html FROM emails ORDER BY email_id DESC")
+    if len(em):
+        st.dataframe(em.drop(columns="html"), hide_index=True, width="stretch")
+        pick = st.selectbox("Preview", em["email_id"], key="pv-outbox")
+        st.html(em.set_index("email_id").loc[pick, "html"])
+    else:
+        st.info("No emails yet.")
+
+# ---------- Ledger ----------
+with tabs[5]:
+    st.subheader("Ledger: what each agent did")
+    st.dataframe(db.df("SELECT time, agent, action, result FROM ledger ORDER BY id DESC"), hide_index=True, width="stretch")
