@@ -17,6 +17,7 @@ ID_RE = re.compile(r"\bASA-?\s?(\d{1,4})\b", re.I)
 EMAIL_RE = re.compile(r"[^@\s,;]+@[^@\s,;]+\.[A-Za-z]{2,}")
 DAY_WORDS = {"mon": "Mon", "tue": "Tue", "wed": "Wed", "thu": "Thu", "fri": "Fri",
              "пон": "Mon", "втор": "Tue", "сред": "Wed", "чет": "Thu", "пят": "Fri"}
+CHIPS = {"how much does it cost?", "what is the timetable?", "ages and levels", "enrol my child", "change my booking", "cancel my booking"}
 MENU = ("I can help with:\n"
         "1. Questions: prices, timetable, levels, ages, what children learn\n"
         "2. Enrol a child (type **enrol**)\n"
@@ -77,6 +78,10 @@ def faq(t: str) -> str | None:
                 "Our Accountant agent emails an invoice at the start of each month.")
     if re.search(r"time|timetable|schedule|when|which day|days|распис|время|когда", t):
         return timetable()
+    if re.search(r"hsk|level|уров", t) and re.search(r"\bage|old|возраст", t):
+        return ("**Ages:** both programmes are for children aged 7 to 15. AI Club groups: 7 to 9, 10 to 12, 13 to 15.\n\n"
+                "**Chinese levels:** Beginner (ages 7 to 10, and 11 to 15), HSK1, and HSK2 to 3. Not sure? Choose Beginner; "
+                "the teacher does a short friendly check in the first lesson.")
     if re.search(r"hsk|level|уров", t):
         return ("Chinese groups are by level: Beginner (ages 7 to 10, and 11 to 15), HSK1, and HSK2 to 3. "
                 "Not sure? Choose Beginner; the teacher does a short friendly check in the first lesson.")
@@ -318,8 +323,28 @@ def manage_turn(st: dict, msg: str) -> str:
             cancel(app_id, prog)
             return "Cancelled. " + describe(app_id) + "\n\nA confirmation email was prepared."
         return "OK, nothing was cancelled."
+    if pend == "cancel_which":
+        st.pop("pending")
+        prog = parse_program(msg) or ("both" if re.search(r"all|both|everything", t) else "")
+        if not prog:
+            return "Please answer **AI Club**, **Chinese** or **both**."
+        prog = {"Chinese": "ZH", "AI": "AI"}.get(prog, prog)
+        st["pending"] = f"cancel:{prog}"
+        label = "both programmes" if prog == "both" else PROGRAMS[prog]
+        return f"Please confirm: cancel **{label}** for {app_id}? (yes / no)"
     if re.search(r"cancel|отмен|remove|stop", t):
-        prog = parse_program(msg) or "both"
+        prog = parse_program(msg) or ("both" if re.search(r"\ball\b|both|everything", t) else "")
+        if not prog:
+            with session() as con:
+                act = [r["program"] for r in con.execute(
+                    "SELECT program FROM enrolments WHERE application_id = ? AND status != 'Cancelled'", (app_id,))]
+            if not act:
+                return "There is nothing active to cancel for " + app_id + "."
+            if len(act) == 1:
+                prog = act[0]
+            else:
+                st["pending"] = "cancel_which"
+                return "What would you like to cancel: **AI Club**, **Chinese** or **both**?"
         prog = {"Chinese": "ZH", "AI": "AI"}.get(prog, prog)
         st["pending"] = f"cancel:{prog}"
         label = "both programmes" if prog == "both" else PROGRAMS[prog]
@@ -341,6 +366,11 @@ def manage_turn(st: dict, msg: str) -> str:
         return "Which Chinese level: Beginner, HSK1 or HSK2-3?"
     if re.search(r"status|show|current|статус", t):
         return describe(app_id)
+    if re.search(r"change|booking|modify|update|изменить", t):
+        return "What would you like to change: **days** or **Chinese level**? (or **cancel**)"
+    ans = faq(msg)
+    if ans:
+        return ans
     return f"You are managing {app_id}. You can say: **change days**, **change level**, **cancel AI Club**, **cancel Chinese**, **cancel all**, or **menu**."
 
 
@@ -353,30 +383,40 @@ def reply(sid: str, msg: str) -> str:
     if re.search(r"^(menu|start over|restart|hi|hello|hey|привет|здравствуйте)\b", t) or not msg:
         st = {}
         out = "Hello! I am the ASA support assistant for the AI Club and Chinese classes. " + MENU
+    elif msg.lower() in CHIPS and not (st.get("mode") == "manage" and msg.lower() in ("change my booking", "cancel my booking")):
+        st = {}
+        out = route(st, msg)
     elif st.get("mode") == "enrol":
         out = enrol_turn(st, msg)
     elif st.get("mode") == "manage":
         out = manage_turn(st, msg)
     else:
-        app_id, em = parse_id(msg), EMAIL_RE.search(msg)
-        if st.get("mode") == "verify" and app_id and em:
-            out = start_manage(st, app_id, em.group(), st.get("intent", ""))
-        elif re.search(r"change|cancel|reschedul|status|my application|modify|update|move|изменить|отмен", t) or (app_id and em):
-            st = {"mode": "verify", "intent": msg}
-            if app_id and em:
-                out = start_manage(st, app_id, em.group(), msg)
-            else:
-                out = "Sure. Please send your **application ID** (for example ASA-0003) and the **email** you used, in one message."
-        elif st.get("mode") == "verify":
-            if True:
-                out = "I need both: the application ID (ASA-0000) and the parent email. Or type **menu**."
-        elif re.search(r"enrol|enroll|register|sign ?up|apply|join|записат|запись", t):
-            st = {"mode": "enrol"}
-            out = "Great, let us enrol your child. " + enrol_turn(st, msg)
-        else:
-            out = faq(msg) or ("I am not sure I understood. " + MENU)
+        out = route(st, msg)
     save(sid, st)
     record(sid, "agent", out)
+    return out
+
+
+def route(st: dict, msg: str) -> str:
+    t = msg.lower()
+    app_id, em = parse_id(msg), EMAIL_RE.search(msg)
+    if st.get("mode") == "verify" and app_id and em:
+        out = start_manage(st, app_id, em.group(), st.get("intent", ""))
+    elif re.search(r"change|cancel|reschedul|status|my application|booking|modify|update|move|изменить|отмен", t) or (app_id and em):
+        st.clear()
+        st.update(mode="verify", intent=msg)
+        if app_id and em:
+            out = start_manage(st, app_id, em.group(), msg)
+        else:
+            out = "Sure. Please send your **application ID** (for example ASA-0003) and the **email** you used, in one message."
+    elif st.get("mode") == "verify":
+        out = "I need both: the application ID (ASA-0000) and the parent email. Or type **menu**."
+    elif re.search(r"enrol|enroll|register|sign ?up|apply|join|записат|запись", t):
+        st.clear()
+        st["mode"] = "enrol"
+        out = "Great, let us enrol your child. " + enrol_turn(st, msg)
+    else:
+        out = faq(msg) or ("I am not sure I understood. " + MENU)
     return out
 
 

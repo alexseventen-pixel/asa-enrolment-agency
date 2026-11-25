@@ -49,7 +49,7 @@ def thank_you(res: dict) -> str:
             lines.append(f"<li><b>{r['program']}</b>: groups on your days are full, so your child is on the waiting list.</li>")
     return (f'<div class="ok" id="apply"><h2>Thank you! Application {res["application_id"]} received.</h2><ul>{"".join(lines)}</ul>'
             "<p>A confirmation email with these details has been prepared for you automatically. "
-            f"Keep your application ID <b>{res['application_id']}</b>: with it and your email you can change days or cancel in the support chat.</p></div>")
+            f"Keep your application ID <b>{res['application_id']}</b>: with it and your email you can change days or cancel in the <a href="#ask">support chat</a>.</p></div>")
 
 
 def form_data(form: dict) -> dict:
