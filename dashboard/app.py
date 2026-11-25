@@ -1,7 +1,7 @@
 """Boss Command Center for the ASA Enrolment Agency (AI + Chinese).
 
 Run:  streamlit run dashboard/app.py
-Login: ASA_BOSS_USER / ASA_BOSS_PASSWORD env vars (demo defaults: boss / change-me-demo).
+Login (only if ASA_REQUIRE_LOGIN=yes): ASA_BOSS_USER / ASA_BOSS_PASSWORD env vars (demo defaults: boss / change-me-demo).
 Modules: A) Task assignment  B) Live task board  C) Reports  D) Chat  E) Employees
 """
 from __future__ import annotations
@@ -30,8 +30,11 @@ PASSWORD = os.environ.get("ASA_BOSS_PASSWORD", "change-me-demo")
 SHEET_URL = os.environ.get("ASA_SHEET_URL", "")
 
 
+REQUIRE_LOGIN = os.environ.get("ASA_REQUIRE_LOGIN", "no").lower() in ("1", "yes", "true")
+
+
 def login() -> bool:
-    if st.session_state.get("auth"):
+    if not REQUIRE_LOGIN or st.session_state.get("auth"):
         return True
     st.title(f"🎓 {AGENCY_NAME}")
     st.caption("Boss Command Center. Only the Boss can sign in.")
@@ -64,7 +67,7 @@ with st.sidebar:
         log = []
         process_queue(log=log.append)
         st.success(f"Processed {len(log)} tasks")
-    if st.button("Sign out"):
+    if REQUIRE_LOGIN and st.button("Sign out"):
         st.session_state.auth = False
         st.rerun()
 
