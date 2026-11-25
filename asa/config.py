@@ -20,8 +20,8 @@ TZ = ZoneInfo("Europe/Riga")
 AGENCY_NAME = "ASA Enrolment Agency (AI + Chinese)"
 CLIENT = "After-school activities (ASA): AI Club and Chinese classes, International School Premjers, Riga"
 BOSS_NAME = os.environ.get("ASA_BOSS_NAME", "Oleg Mishchenko")
-BOSS_EMAIL = os.environ.get("ASA_BOSS_EMAIL", "boss@example.com")
-CLUB_EMAIL = os.environ.get("ASA_CLUB_EMAIL", "ai-club@example.com")
+BOSS_EMAIL = os.environ.get("ASA_BOSS_EMAIL", "alexseventen@gmail.com")
+CLUB_EMAIL = os.environ.get("ASA_CLUB_EMAIL", "alexseventen@gmail.com")
 
 SYNTHETIC_LABEL = "SYNTHETIC SAMPLE DATA (no real children or parents)"
 
