@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -36,6 +37,12 @@ def main() -> None:
     print("Sheets bridge CSVs:", ", ".join(Path(p).name for p in paths.values()))
     print("Live push:", push(paths))
     print("Email drafts in outbox/ (nothing sent). Dashboard: streamlit run dashboard/app.py")
+    if os.environ.get("ASA_SERVE_ASGI", "no").lower() in ("1", "yes", "true"):
+        # One process serves the dashboard at / and the landing page at /apply (see asgi.py).
+        port = os.environ.get("PORT", "8501")
+        print(f"Serving dashboard + landing page on port {port}")
+        os.chdir(Path(__file__).resolve().parent.parent)
+        os.execvp(sys.executable, [sys.executable, "-m", "uvicorn", "asgi:app", "--host", "0.0.0.0", "--port", port])
 
 
 if __name__ == "__main__":

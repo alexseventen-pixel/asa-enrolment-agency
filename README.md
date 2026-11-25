@@ -40,6 +40,22 @@ streamlit run dashboard/app.py                  # Boss Command Center (login: se
 python -m unittest discover tests
 ```
 
+## Public landing page with application form
+
+`asgi.py` serves one web service: the Boss dashboard at `/` and the parents' landing page at `/apply`
+(`web/landing.html`). A submitted form is saved to `state/web_applications.csv` (source "Web form") and the
+Project Manager immediately dispatches Intake, QA, Scheduler, Communications (draft email only) and Analyst tasks.
+The dashboard tab "Web applications" lists real submissions separately from the synthetic sample.
+
+```bash
+uvicorn asgi:app --host 0.0.0.0 --port 8501      # dashboard at /, form at /apply
+# or, as on Render:
+ASA_SERVE_ASGI=yes python scripts/run_pipeline.py --reset
+```
+
+Render start command (recommended): `python scripts/run_pipeline.py --reset && uvicorn asgi:app --host 0.0.0.0 --port $PORT`.
+Note: on the free plan the SQLite file and submissions are lost on restart or redeploy.
+
 ## Layout
 
 ```

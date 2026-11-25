@@ -1,28 +1,28 @@
 {
-  "generated_at": "2026-11-25 19:30:25",
+  "generated_at": "2026-11-25 20:20:06",
   "kpis": {
-    "applications_total": 92,
-    "requests_ai": 54,
-    "requests_chinese": 38,
-    "placed_ai": 39,
-    "placed_chinese": 19,
-    "children_in_both": 3,
-    "applications_today": 0,
-    "placed": 58,
+    "applications_total": 94,
+    "requests_ai": 55,
+    "requests_chinese": 39,
+    "placed_ai": 40,
+    "placed_chinese": 20,
+    "children_in_both": 4,
+    "applications_today": 2,
+    "placed": 60,
     "waitlist": 20,
     "qa_issues": 14,
-    "group_fill_pct": 58.0,
-    "attendance_pct": 86.1,
+    "group_fill_pct": 60.0,
+    "attendance_pct": 86.4,
     "messages_answered": 17,
     "messages_escalated": 7,
-    "posts_today": 12,
-    "email_drafts": 137
+    "posts_today": 9,
+    "email_drafts": 140
   },
   "funnel": {
-    "Applied": 92,
-    "Passed QA": 78,
-    "Placed in group": 58,
-    "Confirmation drafted": 58,
+    "Applied": 94,
+    "Passed QA": 80,
+    "Placed in group": 60,
+    "Confirmation drafted": 60,
     "Waitlist": 20,
     "Needs fix": 13,
     "Duplicate": 1
@@ -62,7 +62,7 @@
       "day": "Thu",
       "time": "16:00",
       "capacity": 12,
-      "enrolled": 10
+      "enrolled": 11
     },
     {
       "group_id": "AI-5",
@@ -107,7 +107,7 @@
       "day": "Wed",
       "time": "16:30",
       "capacity": 8,
-      "enrolled": 4
+      "enrolled": 5
     },
     {
       "group_id": "ZH-5",

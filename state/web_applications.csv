@@ -1,0 +1,2 @@
+application_id,submitted_at,program,chinese_level,child_name,age,grade,parent_name,parent_email,parent_phone,availability,experience,consent_data,consent_photo,source,data_label,notes
+WEB-001,2026-11-25 20:19,both,HSK1,TEST Child,11,Grade 5,TEST Parent,test-parent@example.com,,Mon;Wed;Thu,,yes,no,Web form,TEST SUBMISSION,"TEST submission by Grok Bot, please ignore"

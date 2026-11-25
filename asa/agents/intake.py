@@ -13,6 +13,13 @@ from ..config import REPORTS, SAMPLE
 from ..db import session
 
 FORM_CSV = os.environ.get("ASA_FORM_CSV", str(SAMPLE / "applications_sample.csv"))
+
+
+def form_sources() -> list[str]:
+    """The sample form export plus real submissions from the landing page (state/web_applications.csv)."""
+    from ..config import STATE
+    web = STATE / "web_applications.csv"
+    return [FORM_CSV] + ([str(web)] if web.exists() else [])
 PROGRAM_MAP = {"ai": ["AI"], "chinese": ["ZH"], "both": ["AI", "ZH"]}
 
 
@@ -26,7 +33,7 @@ def band(program: str, age: int, level: str) -> str:
         return "Beginner 7-10" if age <= 10 else "Beginner 11-15"
     if level == "HSK1":
         return "HSK1"
-    if level in ("HSK2", "HSK3"):
+    if level in ("HSK2", "HSK3", "HSK2-3"):
         return "HSK2-3"
     return "level missing"
 
@@ -47,8 +54,12 @@ def handle(task: dict) -> dict:
     if task.get("kind") == "attendance":
         return import_registers()
     new, seen = 0, 0
-    with open(FORM_CSV, newline="") as f, session() as con:
-        for r in csv.DictReader(f):
+    rows = []
+    for src in form_sources():
+        with open(src, newline="") as f:
+            rows += list(csv.DictReader(f))
+    with session() as con:
+        for r in rows:
             seen += 1
             try:
                 age = int(r["age"])

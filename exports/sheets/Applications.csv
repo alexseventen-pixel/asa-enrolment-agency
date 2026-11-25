@@ -91,3 +91,5 @@ APP-078-AI,APP-078,AI Club,2026-11-14 10:00,Eva Example,12,,10-12,Mon;Wed;Thu,ye
 APP-079-AI,APP-079,AI Club,2026-11-14 04:00,Roberts Demo,9,,7-9,Mon;Tue;Thu;Fri,yes,yes,ManageBac notice,Confirmation drafted,,AI-1,SYNTHETIC SAMPLE DATA (no real children or parents)
 APP-080-AI,APP-080,AI Club,2026-11-10 20:00,Roberts Sample,10,,10-12,Mon;Tue;Fri,yes,yes,Poster,Confirmation drafted,,AI-3,SYNTHETIC SAMPLE DATA (no real children or parents)
 APP-081-ZH,APP-081,Chinese,2026-11-21 18:05,Marta Placeholder,12,HSK2,HSK2-3,Mon;Tue;Wed;Thu,yes,yes,Poster,Duplicate,duplicate of APP-005-ZH,,SYNTHETIC SAMPLE DATA (no real children or parents)
+WEB-001-AI,WEB-001,AI Club,2026-11-25 20:19,TEST Child,11,,10-12,Mon;Wed;Thu,yes,no,Web form,Confirmation drafted,,AI-4,TEST SUBMISSION
+WEB-001-ZH,WEB-001,Chinese,2026-11-25 20:19,TEST Child,11,HSK1,HSK1,Mon;Wed;Thu,yes,no,Web form,Confirmation drafted,,ZH-4,TEST SUBMISSION

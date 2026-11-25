@@ -1,44 +1,44 @@
-From: ai-club@example.com
-To: boss@example.com
+From: alexseventen@gmail.com
+To: alexseventen@gmail.com
 Subject: [ASA Enrolment Agency (AI + Chinese)] Daily brief 2026-11-25: 11
  done, 0 open, 1 blocked
-Date: Wed, 25 Nov 2026 19:30:24 +0200
-Message-ID: <179562782465.671884.10522580432410701008@asa-agency.local>
+Date: Wed, 25 Nov 2026 20:20:06 +0200
+Message-ID: <179563080665.688517.11823029340887243518@asa-agency.local>
 X-ASA-Status: DRAFT - not sent, waiting for Boss approval
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="===============6018581161429384925=="
+ boundary="===============6122411087067618567=="
 
---===============6018581161429384925==
+--===============6122411087067618567==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
 ASA Enrolment Agency (AI + Chinese): daily brief
 
-Wednesday 25 November 2026, 19:30 (Riga time). Synthetic sample data, demo on=
+Wednesday 25 November 2026, 20:20 (Riga time). Synthetic sample data, demo on=
 ly.
 
 Summary: 11 tasks completed, 0 queued or in progress, 1 blocked.
 
-92
+94
 Enrolment requests
- | 54 / 38
+ | 55 / 39
 AI / Chinese
- | 39 / 19
+ | 40 / 20
 Placed AI / Chinese
- | 3
+ | 4
 In both programs
  | 20
 Waitlist
- | 58.0%
+ | 60.0%
 Group fill
  |=20
 
-86.1%
+86.4%
 Attendance
  | 14
 QA issues
- | 136
+ | 140
 Email drafts
  | 9
 Posts today
@@ -48,7 +48,7 @@ Parent msgs answered / escalated
 
 Blocked (needs you)
 Task | Employee | Title | Status | Blocked reason | Output |=20
-T-0007 | Communications Officer | Send drafted emails | Blocked | 136 drafts =
+T-0007 | Communications Officer | Send drafted emails | Blocked | 140 drafts =
 ready. Waiting for Boss approval to send (policy: nothing is sent without app=
 roval) | outbox/ |=20
 
@@ -84,7 +84,7 @@ Employee | Completed | In Progress | Queued | Blocked | Avg completion (s) | =
 Project Manager | 1 | 1 | 0 | 0 | 0.0 |=20
 Intake Officer | 2 | 0 | 0 | 0 | 0.0 |=20
 Scheduler | 1 | 0 | 0 | 0 | 0.0 |=20
-Communications Officer | 2 | 0 | 0 | 1 | 0.0 |=20
+Communications Officer | 2 | 0 | 0 | 1 | 0.5 |=20
 Parent Support | 1 | 0 | 0 | 0 | 0.0 |=20
 Content Writer | 2 | 0 | 0 | 0 | 0.5 |=20
 Analyst | 1 | 0 | 0 | 0 | 0.0 |=20
@@ -92,7 +92,7 @@ QA Auditor | 1 | 0 | 0 | 0 | 0.0 |=20
 
 Sent by the Project Manager agent. Ledger: Google Sheet tab "Ledger".
 
---===============6018581161429384925==
+--===============6122411087067618567==
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
@@ -100,36 +100,36 @@ MIME-Version: 1.0
 <div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:720px"><h2=
  style=3D"margin-bottom:0">ASA Enrolment Agency (AI + Chinese): daily brief</=
 h2>
-<p style=3D"color:#667;margin-top:2px">Wednesday 25 November 2026, 19:30 (Rig=
+<p style=3D"color:#667;margin-top:2px">Wednesday 25 November 2026, 20:20 (Rig=
 a time). Synthetic sample data, demo only.</p>
 <p><b>Summary:</b> 11 tasks completed, 0 queued or in progress, 1 blocked.</p>
 <table style=3D"border-collapse:collapse;width:100%;font-size:13px"><tr><td s=
 tyle=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;text-align:c=
-enter"><div style=3D"font-size:18px;font-weight:bold">92</div><div style=3D"f=
+enter"><div style=3D"font-size:18px;font-weight:bold">94</div><div style=3D"f=
 ont-size:11px;color:#667">Enrolment requests</div></td><td style=3D"border:1p=
 x solid #d8dde6;padding:4px 6px;text-align:left;text-align:center"><div style=
-=3D"font-size:18px;font-weight:bold">54 / 38</div><div style=3D"font-size:11p=
+=3D"font-size:18px;font-weight:bold">55 / 39</div><div style=3D"font-size:11p=
 x;color:#667">AI / Chinese</div></td><td style=3D"border:1px solid #d8dde6;pa=
 dding:4px 6px;text-align:left;text-align:center"><div style=3D"font-size:18px=
-;font-weight:bold">39 / 19</div><div style=3D"font-size:11px;color:#667">Plac=
+;font-weight:bold">40 / 20</div><div style=3D"font-size:11px;color:#667">Plac=
 ed AI / Chinese</div></td><td style=3D"border:1px solid #d8dde6;padding:4px 6=
 px;text-align:left;text-align:center"><div style=3D"font-size:18px;font-weigh=
-t:bold">3</div><div style=3D"font-size:11px;color:#667">In both programs</div=
+t:bold">4</div><div style=3D"font-size:11px;color:#667">In both programs</div=
 ></td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;t=
 ext-align:center"><div style=3D"font-size:18px;font-weight:bold">20</div><div=
  style=3D"font-size:11px;color:#667">Waitlist</div></td><td style=3D"border:1=
 px solid #d8dde6;padding:4px 6px;text-align:left;text-align:center"><div styl=
-e=3D"font-size:18px;font-weight:bold">58.0%</div><div style=3D"font-size:11px=
+e=3D"font-size:18px;font-weight:bold">60.0%</div><div style=3D"font-size:11px=
 ;color:#667">Group fill</div></td></tr></table>
 <table style=3D"border-collapse:collapse;width:100%;font-size:13px;margin-top=
 :4px"><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:le=
-ft;text-align:center"><div style=3D"font-size:18px;font-weight:bold">86.1%</d=
+ft;text-align:center"><div style=3D"font-size:18px;font-weight:bold">86.4%</d=
 iv><div style=3D"font-size:11px;color:#667">Attendance</div></td><td style=3D=
 "border:1px solid #d8dde6;padding:4px 6px;text-align:left;text-align:center">=
 <div style=3D"font-size:18px;font-weight:bold">14</div><div style=3D"font-siz=
 e:11px;color:#667">QA issues</div></td><td style=3D"border:1px solid #d8dde6;=
 padding:4px 6px;text-align:left;text-align:center"><div style=3D"font-size:18=
-px;font-weight:bold">136</div><div style=3D"font-size:11px;color:#667">Email =
+px;font-weight:bold">140</div><div style=3D"font-size:11px;color:#667">Email =
 drafts</div></td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-a=
 lign:left;text-align:center"><div style=3D"font-size:18px;font-weight:bold">9=
 </div><div style=3D"font-size:11px;color:#667">Posts today</div></td><td styl=
@@ -152,7 +152,7 @@ align:left">T-0007</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;=
 text-align:left">Communications Officer</td><td style=3D"border:1px solid #d8=
 dde6;padding:4px 6px;text-align:left">Send drafted emails</td><td style=3D"bo=
 rder:1px solid #d8dde6;padding:4px 6px;text-align:left">Blocked</td><td style=
-=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">136 drafts read=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">140 drafts read=
 y. Waiting for Boss approval to send (policy: nothing is sent without approva=
 l)</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left"=
 >outbox/</td></tr></table>
@@ -267,7 +267,7 @@ dde6;padding:4px 6px;text-align:left">2</td><td style=3D"border:1px solid #d8=
 dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8=
 dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8=
 dde6;padding:4px 6px;text-align:left">1</td><td style=3D"border:1px solid #d8=
-dde6;padding:4px 6px;text-align:left">0.0</td></tr><tr><td style=3D"border:1p=
+dde6;padding:4px 6px;text-align:left">0.5</td></tr><tr><td style=3D"border:1p=
 x solid #d8dde6;padding:4px 6px;text-align:left">Parent Support</td><td style=
 =3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">1</td><td style=
 =3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=
@@ -296,4 +296,4 @@ olid #d8dde6;padding:4px 6px;text-align:left">0.0</td></tr></table>
 <p style=3D"color:#888;font-size:11px">Sent by the Project Manager agent. Led=
 ger: Google Sheet tab "Ledger".</p></div>
 
---===============6018581161429384925==--
+--===============6122411087067618567==--

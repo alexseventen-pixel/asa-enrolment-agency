@@ -1,40 +1,41 @@
-From: ai-club@example.com
-To: parent026@example.com
-Subject: Reminder: AI Club Lesson 3 on Tue 01 Dec
-Date: Wed, 25 Nov 2026 19:30:23 +0200
-Message-ID: <179562782351.671884.12607934628949923805@asa-agency.local>
+From: alexseventen@gmail.com
+To: parent022@example.com
+Subject: Reminder: AI Club Lesson 2 on Thu 26 Nov
+Date: Wed, 25 Nov 2026 20:20:05 +0200
+Message-ID: <179563080523.688517.17595244114937890998@asa-agency.local>
 X-ASA-Status: DRAFT - not sent, waiting for Boss approval
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="===============7150204700807051583=="
+ boundary="===============3585076607596704897=="
 
---===============7150204700807051583==
+--===============3585076607596704897==
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-Dear Parent Example 026,
+Dear Parent Example 022,
 
-A quick reminder: Zane Demo has AI Club on Tuesday 01 December at 16:00.
+A quick reminder: Oskars Testa has AI Club on Thursday 26 November at 16:00.
 
-Lesson 3: Bad Data, Bad AI. How biased or messy data breaks a model.
+Lesson 2: Teaching a Machine to See. Train an image classifier with your own =
+photos.
 
 Best regards,
 AI Club team
 Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.
 
---===============7150204700807051583==
+--===============3585076607596704897==
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 
 <div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:620px"><p>=
-Dear Parent Example 026,</p>
-<p>A quick reminder: <b>Zane Demo</b> has <b>AI Club</b> on <b>Tuesday 01 Dec=
-ember at 16:00</b>.</p>
-<p>Lesson 3: <b>Bad Data, Bad AI</b>. How biased or messy data breaks a model=
-.</p>
+Dear Parent Example 022,</p>
+<p>A quick reminder: <b>Oskars Testa</b> has <b>AI Club</b> on <b>Thursday 26=
+ November at 16:00</b>.</p>
+<p>Lesson 2: <b>Teaching a Machine to See</b>. Train an image classifier with=
+ your own photos.</p>
 <p>Best regards,<br>AI Club team</p><p style=3D"color:#888;font-size:11px">Pr=
 epared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.</p></d=
 iv>
 
---===============7150204700807051583==--
+--===============3585076607596704897==--

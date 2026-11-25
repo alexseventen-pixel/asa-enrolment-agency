@@ -2,10 +2,10 @@ Group,Program,Band,Day,Time,Capacity,Enrolled,Waitlist (band)
 AI-1,AI Club,7-9,Mon,15:30,12,7,1
 AI-2,AI Club,7-9,Wed,15:30,12,6,1
 AI-3,AI Club,10-12,Tue,16:00,12,10,3
-AI-4,AI Club,10-12,Thu,16:00,12,10,3
+AI-4,AI Club,10-12,Thu,16:00,12,11,3
 AI-5,AI Club,13-15,Fri,15:00,12,6,3
 ZH-1,Chinese,Beginner 7-10,Tue,15:30,8,3,1
 ZH-2,Chinese,Beginner 7-10,Thu,15:30,8,3,1
 ZH-3,Chinese,Beginner 11-15,Mon,16:30,8,1,1
-ZH-4,Chinese,HSK1,Wed,16:30,8,4,4
+ZH-4,Chinese,HSK1,Wed,16:30,8,5,4
 ZH-5,Chinese,HSK2-3,Fri,16:00,8,8,7

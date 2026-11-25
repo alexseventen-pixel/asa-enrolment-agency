@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After-school AI Club and Chinese | International School Premjers</title>
+<style>
+:root{--navy:#1f3358;--accent:#e8613c;--soft:#f4f6fb;--text:#1d2433}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);line-height:1.5;background:#fff}
+header{background:var(--navy);color:#fff;padding:48px 20px 40px;text-align:center}
+header h1{margin:0 0 8px;font-size:clamp(26px,5vw,40px)}header p{margin:0 auto;max-width:640px;opacity:.9}
+.btn{display:inline-block;margin-top:20px;background:var(--accent);color:#fff;padding:12px 26px;border-radius:30px;text-decoration:none;font-weight:600;border:0;font-size:16px;cursor:pointer}
+main{max-width:980px;margin:0 auto;padding:28px 20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:var(--soft);border-radius:14px;padding:22px}.card h2{margin-top:0;color:var(--navy)}
+.card ol{padding-left:20px;margin:8px 0}.tag{display:inline-block;background:#fff;border:1px solid #d5dbe8;border-radius:20px;padding:2px 10px;font-size:13px;margin:2px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0}
+.step{border-left:4px solid var(--accent);padding:6px 12px}
+form{background:var(--soft);border-radius:14px;padding:24px;display:grid;gap:14px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+label{font-weight:600;font-size:14px;display:block;margin-bottom:4px}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;padding:10px;border:1px solid #c9d1de;border-radius:8px;font-size:16px;background:#fff}
+.inline label{display:inline-flex;align-items:center;gap:6px;font-weight:400;margin-right:14px}
+.note{font-size:13px;color:#556}.err{background:#fde8e4;border:1px solid #f2b8aa;border-radius:8px;padding:10px 14px}
+.ok{background:#e7f6ea;border:1px solid #b5dfbe;border-radius:14px;padding:22px}
+footer{text-align:center;font-size:13px;color:#667;padding:30px 20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>After-school AI Club and Chinese</h1>
+  <p>Two new after-school activities at International School Premjers, Riga. Small groups, friendly teachers, no experience needed.</p>
+  <a class="btn" href="#apply">Apply now</a>
+</header>
+<main>
+  {{RESULT}}
+  <section class="cards">
+    <div class="card">
+      <h2>🤖 AI Club</h2>
+      <p>Ages 7 to 15. Children discover how artificial intelligence works by playing, building and testing real projects. 10 lessons, ending with a Mini Demo Day for parents.</p>
+      <ol>{{AI_LESSONS}}</ol>
+      <span class="tag">Ages 7 to 9</span><span class="tag">Ages 10 to 12</span><span class="tag">Ages 13 to 15</span>
+    </div>
+    <div class="card">
+      <h2>🀄 Chinese</h2>
+      <p>Mandarin Chinese in small groups by level, through games, songs and characters. Not sure about the level? The teacher does a short friendly check in the first lesson.</p>
+      <span class="tag">Beginner</span><span class="tag">HSK1</span><span class="tag">HSK2 to 3</span>
+      <p class="note">Detailed lesson plan: to be confirmed.</p>
+    </div>
+  </section>
+  <section class="steps">
+    <div class="step"><b>1. Apply</b><br>Fill in the form below. It takes 2 minutes.</div>
+    <div class="step"><b>2. We place your child</b><br>By age or level and your preferred days. Children in both programmes never get two activities on one day.</div>
+    <div class="step"><b>3. Confirmation</b><br>You receive an email with the group and first lesson within 1 school day.</div>
+  </section>
+  <p class="note">Start date, times, room and fees: to be confirmed. Days below are preferences, not a booking.</p>
+  <h2 id="apply">Application form</h2>
+  {{ERRORS}}
+  <form method="post" action="/apply#apply">
+    <div class="row">
+      <div><label for="parent_name">Parent name *</label><input type="text" id="parent_name" name="parent_name" required value="{{parent_name}}"></div>
+      <div><label for="parent_email">Parent email *</label><input type="email" id="parent_email" name="parent_email" required value="{{parent_email}}"></div>
+      <div><label for="parent_phone">Phone (optional)</label><input type="tel" id="parent_phone" name="parent_phone" value="{{parent_phone}}"></div>
+    </div>
+    <div class="row">
+      <div><label for="child_name">Child name *</label><input type="text" id="child_name" name="child_name" required value="{{child_name}}"></div>
+      <div><label for="age">Child age *</label><input type="number" id="age" name="age" min="5" max="18" required value="{{age}}"></div>
+      <div><label for="grade">Grade</label><input type="text" id="grade" name="grade" placeholder="e.g. Grade 4" value="{{grade}}"></div>
+    </div>
+    <div class="row">
+      <div><label for="program">Programme *</label>
+        <select id="program" name="program" required onchange="lvl()">
+          <option value="">Choose…</option><option value="ai">AI Club</option><option value="chinese">Chinese</option><option value="both">Both</option>
+        </select></div>
+      <div id="levelbox"><label for="chinese_level">Chinese level *</label>
+        <select id="chinese_level" name="chinese_level">
+          <option value="">Choose…</option><option>Beginner</option><option>HSK1</option><option value="HSK2-3">HSK2 to 3</option>
+        </select></div>
+    </div>
+    <div><label>Preferred days *</label>
+      <div class="inline">{{DAYS}}</div></div>
+    <div><label for="notes">Notes (optional)</label><textarea id="notes" name="notes" rows="3" placeholder="Anything we should know">{{notes}}</textarea></div>
+    <div class="inline">
+      <label><input type="checkbox" name="consent" value="yes" required> I agree that the school processes this data to organise the activity. *</label><br>
+      <label><input type="checkbox" name="consent_photo" value="yes"> Photos of my child at club activities may be used in school news (optional).</label>
+    </div>
+    <div><button class="btn" type="submit">Send application</button></div>
+    <p class="note">We use your data only to organise the after-school activities.</p>
+  </form>
+</main>
+<footer>International School Premjers, Riga · After-school activities (ASA)</footer>
+<script>
+function lvl(){var p=document.getElementById('program').value;var b=document.getElementById('levelbox');var s=document.getElementById('chinese_level');var on=(p==='chinese'||p==='both');b.style.display=on?'block':'none';s.required=on;}
+document.getElementById('program').value="{{program}}";document.getElementById('chinese_level').value="{{chinese_level}}";lvl();
+</script>
+</body>
+</html>

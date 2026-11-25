@@ -1,10 +1,10 @@
 {
-  "form_rows": 81,
-  "new_requests": 92,
-  "total_requests": 92,
+  "form_rows": 82,
+  "new_requests": 94,
+  "total_requests": 94,
   "by_program": {
-    "AI": 54,
-    "ZH": 38
+    "AI": 55,
+    "ZH": 39
   },
   "source": "applications_sample.csv"
 }

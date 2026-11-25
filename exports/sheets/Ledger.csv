@@ -1,16 +1,14 @@
 Task ID,Timestamp,Assigned By,Agent Name,Task Description,Priority,Status,Output / Result Link,Completion Time
-T-0001,2026-11-25 19:30:23,Project Manager,Intake Officer,Import new applications: Parse the ASA form export (AI + Chinese) into enrolment requests,High,Completed,reports/intake_latest.json,2026-11-25 19:30:23
-T-0002,2026-11-25 19:30:23,Project Manager,QA Auditor,"Audit new requests: Check duplicates, consent, emails, ages, availability and Chinese level",High,Completed,reports/qa_latest.md,2026-11-25 19:30:23
-T-0003,2026-11-25 19:30:23,Project Manager,Scheduler,"Build clash-free groups: Place valid requests by program, age or level band and availability",High,Completed,exports/sheets/Schedule.csv,2026-11-25 19:30:23
-T-0004,2026-11-25 19:30:23,Project Manager,Intake Officer,Import lesson registers: Import attendance registers for lessons already held (sample registers),Medium,Completed,exports/sheets/Attendance.csv,2026-11-25 19:30:23
-T-0005,2026-11-25 19:30:23,Project Manager,Communications Officer,Draft confirmations: Draft confirmation and waitlist emails per program,Medium,Completed,outbox/confirmations/,2026-11-25 19:30:23
-T-0006,2026-11-25 19:30:23,Project Manager,Communications Officer,Draft lesson reminders: Draft reminders for the next lesson of every placed child,Medium,Completed,outbox/reminders/,2026-11-25 19:30:23
-T-0007,2026-11-25 19:30:23,Project Manager,Communications Officer,Send drafted emails: Send all drafted parent emails,Medium,Blocked,outbox/,
-T-0008,2026-11-25 19:30:23,Project Manager,Parent Support,"Triage parent inbox: Categorise parent questions, draft FAQ replies, escalate the rest",High,Completed,reports/support_latest.md,2026-11-25 19:30:23
-T-0009,2026-11-25 19:30:23,Project Manager,Content Writer,Weekly lesson posts: Draft lesson posts for AI Club and Chinese on 4 channels,Low,Completed,exports/posts/,2026-11-25 19:30:24
-T-0010,2026-11-25 19:30:23,Project Manager,Content Writer,Poster copy: Write poster copy announcing both ASA programs,Low,Completed,exports/posts/,2026-11-25 19:30:24
-T-0011,2026-11-25 19:30:23,Project Manager,Analyst,Refresh dashboards: Compute KPIs split by program and export dashboard data,Medium,Completed,reports/kpis_latest.json,2026-11-25 19:30:24
-T-0012,2026-11-25 19:30:23,Project Manager,Project Manager,Audit employees: Audit all 7 employees and update the ledger,High,Completed,Ledger tab,2026-11-25 19:30:24
-T-0013,2026-11-25 19:30:23,Project Manager,Project Manager,Daily brief: Email the Boss a scannable daily brief,High,Completed,outbox/daily_brief/E-0137.eml,2026-11-25 19:30:24
-T-0014,2026-11-25 19:30:24,Boss (chat),Content Writer,"write 3 LinkedIn posts about our new service, due tomorrow.",Medium,Completed,exports/posts/,2026-11-25 19:30:25
-T-0015,2026-11-25 19:30:25,Boss (terminal),Analyst,Weekly report: compare AI Club and Chinese demand,High,Completed,reports/kpis_latest.json,2026-11-25 19:30:25
+T-0001,2026-11-25 20:20:04,Project Manager,Intake Officer,Import new applications: Parse the ASA form export (AI + Chinese) into enrolment requests,High,Completed,reports/intake_latest.json,2026-11-25 20:20:04
+T-0002,2026-11-25 20:20:04,Project Manager,QA Auditor,"Audit new requests: Check duplicates, consent, emails, ages, availability and Chinese level",High,Completed,reports/qa_latest.md,2026-11-25 20:20:04
+T-0003,2026-11-25 20:20:04,Project Manager,Scheduler,"Build clash-free groups: Place valid requests by program, age or level band and availability",High,Completed,exports/sheets/Schedule.csv,2026-11-25 20:20:04
+T-0004,2026-11-25 20:20:04,Project Manager,Intake Officer,Import lesson registers: Import attendance registers for lessons already held (sample registers),Medium,Completed,exports/sheets/Attendance.csv,2026-11-25 20:20:04
+T-0005,2026-11-25 20:20:04,Project Manager,Communications Officer,Draft confirmations: Draft confirmation and waitlist emails per program,Medium,Completed,outbox/confirmations/,2026-11-25 20:20:05
+T-0006,2026-11-25 20:20:04,Project Manager,Communications Officer,Draft lesson reminders: Draft reminders for the next lesson of every placed child,Medium,Completed,outbox/reminders/,2026-11-25 20:20:05
+T-0007,2026-11-25 20:20:04,Project Manager,Communications Officer,Send drafted emails: Send all drafted parent emails,Medium,Blocked,outbox/,
+T-0008,2026-11-25 20:20:04,Project Manager,Parent Support,"Triage parent inbox: Categorise parent questions, draft FAQ replies, escalate the rest",High,Completed,reports/support_latest.md,2026-11-25 20:20:05
+T-0009,2026-11-25 20:20:04,Project Manager,Content Writer,Weekly lesson posts: Draft lesson posts for AI Club and Chinese on 4 channels,Low,Completed,exports/posts/,2026-11-25 20:20:06
+T-0010,2026-11-25 20:20:04,Project Manager,Content Writer,Poster copy: Write poster copy announcing both ASA programs,Low,Completed,exports/posts/,2026-11-25 20:20:06
+T-0011,2026-11-25 20:20:04,Project Manager,Analyst,Refresh dashboards: Compute KPIs split by program and export dashboard data,Medium,Completed,reports/kpis_latest.json,2026-11-25 20:20:06
+T-0012,2026-11-25 20:20:04,Project Manager,Project Manager,Audit employees: Audit all 7 employees and update the ledger,High,Completed,Ledger tab,2026-11-25 20:20:06
+T-0013,2026-11-25 20:20:04,Project Manager,Project Manager,Daily brief: Email the Boss a scannable daily brief,High,Completed,outbox/daily_brief/E-0141.eml,2026-11-25 20:20:06

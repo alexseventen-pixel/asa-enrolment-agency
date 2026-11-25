@@ -55,7 +55,8 @@ if not login():
 with st.sidebar:
     st.header("🎓 ASA Agency")
     st.caption(f"{now():%d %b %Y %H:%M} Riga")
-    st.warning(SYNTHETIC_LABEL)
+    st.warning(SYNTHETIC_LABEL + ". Rows with source 'Web form' are real landing page submissions.")
+    st.link_button("Open public application form", "/apply")
     if SHEET_URL:
         st.link_button("Open Google Sheet ledger", SHEET_URL)
     if st.button("▶ Run agency day (PM plans 13 tasks)"):
@@ -80,7 +81,24 @@ for c, (label, v) in zip(cols, [("Requests", k["applications_total"]), ("AI Club
                                 ("Attendance", f"{k['attendance_pct']}%")]):
     c.metric(label, v)
 
-tab_a, tab_b, tab_c, tab_d, tab_e = st.tabs(["A · Assign task", "B · Task board", "C · Reports", "D · Chat", "E · Employees"])
+tab_w, tab_a, tab_b, tab_c, tab_d, tab_e = st.tabs(["🌐 Web applications", "A · Assign task", "B · Task board", "C · Reports",
+                                                    "D · Chat", "E · Employees"])
+
+with tab_w:
+    st.subheader("Applications from the public landing page (/apply)")
+    w = df("SELECT a.child_ref AS 'Form ID', a.submitted_at AS 'Submitted', CASE a.program WHEN 'ZH' THEN 'Chinese' ELSE 'AI Club' END AS 'Program',"
+           " a.child_name AS 'Child', a.age AS 'Age', a.chinese_level AS 'Level', a.availability AS 'Days', a.status AS 'Status',"
+           " a.group_id AS 'Group', a.qa_flags AS 'QA flags', a.data_label AS 'Label' FROM applications a"
+           " WHERE a.source = 'Web form' ORDER BY a.submitted_at DESC, a.child_ref")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Web requests", len(w))
+    c2.metric("Placed", int((w["Group"] != "").sum()) if len(w) else 0)
+    c3.metric("Test submissions", int((w["Label"] == "TEST SUBMISSION").sum()) if len(w) else 0)
+    if len(w):
+        st.dataframe(w, hide_index=True, width="stretch")
+    else:
+        st.info("No web submissions yet. Share the form link: /apply")
+    st.caption("Each submission triggers Intake, QA, Scheduler, Communications (draft email only) and Analyst tasks in the ledger, assigned by 'Web form'.")
 
 with tab_a:
     st.subheader("Assign a task to the Project Manager or any employee")

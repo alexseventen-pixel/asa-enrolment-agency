@@ -1,20 +1,20 @@
-From: ai-club@example.com
-To: parent001@example.com
+From: alexseventen@gmail.com
+To: test-parent@example.com
 Subject: Reminder: AI Club Lesson 2 on Thu 26 Nov
-Date: Wed, 25 Nov 2026 19:30:23 +0200
-Message-ID: <179562782347.671884.17649910459722953883@asa-agency.local>
+Date: Wed, 25 Nov 2026 20:20:05 +0200
+Message-ID: <179563080537.688517.10795422823192729595@asa-agency.local>
 X-ASA-Status: DRAFT - not sent, waiting for Boss approval
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="===============3833821113813032879=="
+ boundary="===============3920372368667252698=="
 
---===============3833821113813032879==
+--===============3920372368667252698==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Dear Parent Fiction 001,
+Dear TEST Parent,
 
-A quick reminder: Marta Demo has AI Club on Thursday 26 November at 16:00.
+A quick reminder: TEST Child has AI Club on Thursday 26 November at 16:00.
 
 Lesson 2: Teaching a Machine to See. Train an image classifier with your own =
 photos.
@@ -23,14 +23,14 @@ Best regards,
 AI Club team
 Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.
 
---===============3833821113813032879==
+--===============3920372368667252698==
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 
 <div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:620px"><p>=
-Dear Parent Fiction 001,</p>
-<p>A quick reminder: <b>Marta Demo</b> has <b>AI Club</b> on <b>Thursday 26 N=
+Dear TEST Parent,</p>
+<p>A quick reminder: <b>TEST Child</b> has <b>AI Club</b> on <b>Thursday 26 N=
 ovember at 16:00</b>.</p>
 <p>Lesson 2: <b>Teaching a Machine to See</b>. Train an image classifier with=
  your own photos.</p>
@@ -38,4 +38,4 @@ ovember at 16:00</b>.</p>
 epared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.</p></d=
 iv>
 
---===============3833821113813032879==--
+--===============3920372368667252698==--
