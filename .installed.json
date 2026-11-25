@@ -1,0 +1,48 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "agency": "ASA Enrolment Agency (AI + Chinese)",
+  "version": "0.1.0",
+  "installed_on": "2026-11-25",
+  "employees": {
+    "project-manager": {
+      "employee.json": "8a79a4045f751f51",
+      "ROLE.md": "3f59fed9c78580dc",
+      "work-profile.json": "8dca4aed450c6042"
+    },
+    "intake-officer": {
+      "employee.json": "7233981a82a2d72b",
+      "ROLE.md": "c9f795c4b42cc869",
+      "work-profile.json": "c7cfd5ebdc4088c7"
+    },
+    "qa-auditor": {
+      "employee.json": "a9a0b35b33395363",
+      "ROLE.md": "3c9135c3679521ca",
+      "work-profile.json": "83b19713c109fd5b"
+    },
+    "scheduler": {
+      "employee.json": "373126f048bc063b",
+      "ROLE.md": "8436af48b0acd413",
+      "work-profile.json": "14cabb3b1d41b36b"
+    },
+    "communications": {
+      "employee.json": "c16f9e76f99d0506",
+      "ROLE.md": "09b2141cc3e62a03",
+      "work-profile.json": "d083324e49f84417"
+    },
+    "parent-support": {
+      "employee.json": "811b47cf1ac46f70",
+      "ROLE.md": "d42dfed041d19c09",
+      "work-profile.json": "75e0d5c17dd4b4fc"
+    },
+    "content-writer": {
+      "employee.json": "e7aeae7a44f353e9",
+      "ROLE.md": "1a48095b9c725473",
+      "work-profile.json": "8e142fc0acf83084"
+    },
+    "analyst": {
+      "employee.json": "d8dcaccbc8f42421",
+      "ROLE.md": "6a522f58fe741e5e",
+      "work-profile.json": "086921e557f683bb"
+    }
+  }
+}

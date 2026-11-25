@@ -1,0 +1,41 @@
+From: ai-club@example.com
+To: parent017@example.com
+Subject: Reminder: AI Club Lesson 2 on Fri 27 Nov
+Date: Wed, 25 Nov 2026 19:30:23 +0200
+Message-ID: <179562782349.671884.10501190784837562909@asa-agency.local>
+X-ASA-Status: DRAFT - not sent, waiting for Boss approval
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============0447966311810031049=="
+
+--===============0447966311810031049==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear Parent Example 017,
+
+A quick reminder: Oskars Demo has AI Club on Friday 27 November at 15:00.
+
+Lesson 2: Teaching a Machine to See. Train an image classifier with your own =
+photos.
+
+Best regards,
+AI Club team
+Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.
+
+--===============0447966311810031049==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:620px"><p>=
+Dear Parent Example 017,</p>
+<p>A quick reminder: <b>Oskars Demo</b> has <b>AI Club</b> on <b>Friday 27 No=
+vember at 15:00</b>.</p>
+<p>Lesson 2: <b>Teaching a Machine to See</b>. Train an image classifier with=
+ your own photos.</p>
+<p>Best regards,<br>AI Club team</p><p style=3D"color:#888;font-size:11px">Pr=
+epared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.</p></d=
+iv>
+
+--===============0447966311810031049==--

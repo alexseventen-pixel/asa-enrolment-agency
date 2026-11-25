@@ -1,0 +1,13 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "slug": "content-writer",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "installed_on": "2026-11-25",
+  "files": {
+    "employee.json": "e7aeae7a44f353e9",
+    "ROLE.md": "1a48095b9c725473",
+    "work-profile.json": "8e142fc0acf83084"
+  },
+  "pending": []
+}

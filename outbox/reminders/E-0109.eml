@@ -1,0 +1,39 @@
+From: ai-club@example.com
+To: parent049@example.com
+Subject: Reminder: Chinese Lesson 3 on Mon 30 Nov
+Date: Wed, 25 Nov 2026 19:30:23 +0200
+Message-ID: <179562782356.671884.8940846953786822655@asa-agency.local>
+X-ASA-Status: DRAFT - not sent, waiting for Boss approval
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============3081762181122571296=="
+
+--===============3081762181122571296==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Dear Parent Demo 049,
+
+A quick reminder: Zane Demo has Chinese on Monday 30 November at 16:30.
+
+Lesson 3: My Family. Family words and simple sentences.
+
+Best regards,
+Chinese class team
+Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.
+
+--===============3081762181122571296==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:620px"><p>=
+Dear Parent Demo 049,</p>
+<p>A quick reminder: <b>Zane Demo</b> has <b>Chinese</b> on <b>Monday 30 Nove=
+mber at 16:30</b>.</p>
+<p>Lesson 3: <b>My Family</b>. Family words and simple sentences.</p>
+<p>Best regards,<br>Chinese class team</p><p style=3D"color:#888;font-size:11=
+px">Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.<=
+/p></div>
+
+--===============3081762181122571296==--

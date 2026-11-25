@@ -1,0 +1,299 @@
+From: ai-club@example.com
+To: boss@example.com
+Subject: [ASA Enrolment Agency (AI + Chinese)] Daily brief 2026-11-25: 11
+ done, 0 open, 1 blocked
+Date: Wed, 25 Nov 2026 19:30:24 +0200
+Message-ID: <179562782465.671884.10522580432410701008@asa-agency.local>
+X-ASA-Status: DRAFT - not sent, waiting for Boss approval
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============6018581161429384925=="
+
+--===============6018581161429384925==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+ASA Enrolment Agency (AI + Chinese): daily brief
+
+Wednesday 25 November 2026, 19:30 (Riga time). Synthetic sample data, demo on=
+ly.
+
+Summary: 11 tasks completed, 0 queued or in progress, 1 blocked.
+
+92
+Enrolment requests
+ | 54 / 38
+AI / Chinese
+ | 39 / 19
+Placed AI / Chinese
+ | 3
+In both programs
+ | 20
+Waitlist
+ | 58.0%
+Group fill
+ |=20
+
+86.1%
+Attendance
+ | 14
+QA issues
+ | 136
+Email drafts
+ | 9
+Posts today
+ | 17 / 7
+Parent msgs answered / escalated
+ |=20
+
+Blocked (needs you)
+Task | Employee | Title | Status | Blocked reason | Output |=20
+T-0007 | Communications Officer | Send drafted emails | Blocked | 136 drafts =
+ready. Waiting for Boss approval to send (policy: nothing is sent without app=
+roval) | outbox/ |=20
+
+Completed today
+Task | Employee | Title | Status | Output |=20
+T-0001 | Intake Officer | Import new applications | Completed | reports/intak=
+e_latest.json |=20
+T-0002 | QA Auditor | Audit new requests | Completed | reports/qa_latest.md |=
+=20
+T-0003 | Scheduler | Build clash-free groups | Completed | exports/sheets/Sch=
+edule.csv |=20
+T-0004 | Intake Officer | Import lesson registers | Completed | exports/sheet=
+s/Attendance.csv |=20
+T-0005 | Communications Officer | Draft confirmations | Completed | outbox/co=
+nfirmations/ |=20
+T-0006 | Communications Officer | Draft lesson reminders | Completed | outbox=
+/reminders/ |=20
+T-0008 | Parent Support | Triage parent inbox | Completed | reports/support_l=
+atest.md |=20
+T-0009 | Content Writer | Weekly lesson posts | Completed | exports/posts/ | =
+
+T-0010 | Content Writer | Poster copy | Completed | exports/posts/ |=20
+T-0011 | Analyst | Refresh dashboards | Completed | reports/kpis_latest.json =
+|=20
+T-0012 | Project Manager | Audit employees | Completed | Ledger tab |=20
+
+Queued / in progress
+None
+
+KPIs per employee
+Employee | Completed | In Progress | Queued | Blocked | Avg completion (s) | =
+
+Project Manager | 1 | 1 | 0 | 0 | 0.0 |=20
+Intake Officer | 2 | 0 | 0 | 0 | 0.0 |=20
+Scheduler | 1 | 0 | 0 | 0 | 0.0 |=20
+Communications Officer | 2 | 0 | 0 | 1 | 0.0 |=20
+Parent Support | 1 | 0 | 0 | 0 | 0.0 |=20
+Content Writer | 2 | 0 | 0 | 0 | 0.5 |=20
+Analyst | 1 | 0 | 0 | 0 | 0.0 |=20
+QA Auditor | 1 | 0 | 0 | 0 | 0.0 |=20
+
+Sent by the Project Manager agent. Ledger: Google Sheet tab "Ledger".
+
+--===============6018581161429384925==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:720px"><h2=
+ style=3D"margin-bottom:0">ASA Enrolment Agency (AI + Chinese): daily brief</=
+h2>
+<p style=3D"color:#667;margin-top:2px">Wednesday 25 November 2026, 19:30 (Rig=
+a time). Synthetic sample data, demo only.</p>
+<p><b>Summary:</b> 11 tasks completed, 0 queued or in progress, 1 blocked.</p>
+<table style=3D"border-collapse:collapse;width:100%;font-size:13px"><tr><td s=
+tyle=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;text-align:c=
+enter"><div style=3D"font-size:18px;font-weight:bold">92</div><div style=3D"f=
+ont-size:11px;color:#667">Enrolment requests</div></td><td style=3D"border:1p=
+x solid #d8dde6;padding:4px 6px;text-align:left;text-align:center"><div style=
+=3D"font-size:18px;font-weight:bold">54 / 38</div><div style=3D"font-size:11p=
+x;color:#667">AI / Chinese</div></td><td style=3D"border:1px solid #d8dde6;pa=
+dding:4px 6px;text-align:left;text-align:center"><div style=3D"font-size:18px=
+;font-weight:bold">39 / 19</div><div style=3D"font-size:11px;color:#667">Plac=
+ed AI / Chinese</div></td><td style=3D"border:1px solid #d8dde6;padding:4px 6=
+px;text-align:left;text-align:center"><div style=3D"font-size:18px;font-weigh=
+t:bold">3</div><div style=3D"font-size:11px;color:#667">In both programs</div=
+></td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;t=
+ext-align:center"><div style=3D"font-size:18px;font-weight:bold">20</div><div=
+ style=3D"font-size:11px;color:#667">Waitlist</div></td><td style=3D"border:1=
+px solid #d8dde6;padding:4px 6px;text-align:left;text-align:center"><div styl=
+e=3D"font-size:18px;font-weight:bold">58.0%</div><div style=3D"font-size:11px=
+;color:#667">Group fill</div></td></tr></table>
+<table style=3D"border-collapse:collapse;width:100%;font-size:13px;margin-top=
+:4px"><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:le=
+ft;text-align:center"><div style=3D"font-size:18px;font-weight:bold">86.1%</d=
+iv><div style=3D"font-size:11px;color:#667">Attendance</div></td><td style=3D=
+"border:1px solid #d8dde6;padding:4px 6px;text-align:left;text-align:center">=
+<div style=3D"font-size:18px;font-weight:bold">14</div><div style=3D"font-siz=
+e:11px;color:#667">QA issues</div></td><td style=3D"border:1px solid #d8dde6;=
+padding:4px 6px;text-align:left;text-align:center"><div style=3D"font-size:18=
+px;font-weight:bold">136</div><div style=3D"font-size:11px;color:#667">Email =
+drafts</div></td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-a=
+lign:left;text-align:center"><div style=3D"font-size:18px;font-weight:bold">9=
+</div><div style=3D"font-size:11px;color:#667">Posts today</div></td><td styl=
+e=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;text-align:cent=
+er"><div style=3D"font-size:18px;font-weight:bold">17 / 7</div><div style=3D"=
+font-size:11px;color:#667">Parent msgs answered / escalated</div></td></tr></=
+table>
+<h3>Blocked (needs you)</h3><table style=3D"border-collapse:collapse;width:10=
+0%;font-size:13px"><tr><th style=3D"border:1px solid #d8dde6;padding:4px 6px;=
+text-align:left;background:#24395f;color:#fff">Task</th><th style=3D"border:1=
+px solid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#ff=
+f">Employee</th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text-al=
+ign:left;background:#24395f;color:#fff">Title</th><th style=3D"border:1px sol=
+id #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#fff">Sta=
+tus</th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left=
+;background:#24395f;color:#fff">Blocked reason</th><th style=3D"border:1px so=
+lid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#fff">Ou=
+tput</th></tr><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-=
+align:left">T-0007</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;=
+text-align:left">Communications Officer</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">Send drafted emails</td><td style=3D"bo=
+rder:1px solid #d8dde6;padding:4px 6px;text-align:left">Blocked</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">136 drafts read=
+y. Waiting for Boss approval to send (policy: nothing is sent without approva=
+l)</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left"=
+>outbox/</td></tr></table>
+<h3>Completed today</h3><table style=3D"border-collapse:collapse;width:100%;f=
+ont-size:13px"><tr><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text=
+-align:left;background:#24395f;color:#fff">Task</th><th style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#fff">E=
+mployee</th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left;background:#24395f;color:#fff">Title</th><th style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#fff">Status<=
+/th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left;bac=
+kground:#24395f;color:#fff">Output</th></tr><tr><td style=3D"border:1px solid=
+ #d8dde6;padding:4px 6px;text-align:left">T-0001</td><td style=3D"border:1px =
+solid #d8dde6;padding:4px 6px;text-align:left">Intake Officer</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Import new appl=
+ications</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align=
+:left">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;te=
+xt-align:left">reports/intake_latest.json</td></tr><tr><td style=3D"border:1p=
+x solid #d8dde6;padding:4px 6px;text-align:left">T-0002</td><td style=3D"bord=
+er:1px solid #d8dde6;padding:4px 6px;text-align:left">QA Auditor</td><td styl=
+e=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Audit new requ=
+ests</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:lef=
+t">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-a=
+lign:left">reports/qa_latest.md</td></tr><tr><td style=3D"border:1px solid #d=
+8dde6;padding:4px 6px;text-align:left">T-0003</td><td style=3D"border:1px sol=
+id #d8dde6;padding:4px 6px;text-align:left">Scheduler</td><td style=3D"border=
+:1px solid #d8dde6;padding:4px 6px;text-align:left">Build clash-free groups</=
+td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Com=
+pleted</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:l=
+eft">exports/sheets/Schedule.csv</td></tr><tr><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">T-0004</td><td style=3D"border:1px so=
+lid #d8dde6;padding:4px 6px;text-align:left">Intake Officer</td><td style=3D"=
+border:1px solid #d8dde6;padding:4px 6px;text-align:left">Import lesson regis=
+ters</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:lef=
+t">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-a=
+lign:left">exports/sheets/Attendance.csv</td></tr><tr><td style=3D"border:1px=
+ solid #d8dde6;padding:4px 6px;text-align:left">T-0005</td><td style=3D"borde=
+r:1px solid #d8dde6;padding:4px 6px;text-align:left">Communications Officer</=
+td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Dra=
+ft confirmations</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;te=
+xt-align:left">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4p=
+x 6px;text-align:left">outbox/confirmations/</td></tr><tr><td style=3D"border=
+:1px solid #d8dde6;padding:4px 6px;text-align:left">T-0006</td><td style=3D"b=
+order:1px solid #d8dde6;padding:4px 6px;text-align:left">Communications Offic=
+er</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left"=
+>Draft lesson reminders</td><td style=3D"border:1px solid #d8dde6;padding:4px=
+ 6px;text-align:left">Completed</td><td style=3D"border:1px solid #d8dde6;pad=
+ding:4px 6px;text-align:left">outbox/reminders/</td></tr><tr><td style=3D"bor=
+der:1px solid #d8dde6;padding:4px 6px;text-align:left">T-0008</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Parent Support<=
+/td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Tr=
+iage parent inbox</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;t=
+ext-align:left">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4=
+px 6px;text-align:left">reports/support_latest.md</td></tr><tr><td style=3D"b=
+order:1px solid #d8dde6;padding:4px 6px;text-align:left">T-0009</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Content Writer<=
+/td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">We=
+ekly lesson posts</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;t=
+ext-align:left">Completed</td><td style=3D"border:1px solid #d8dde6;padding:4=
+px 6px;text-align:left">exports/posts/</td></tr><tr><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">T-0010</td><td style=3D"border:=
+1px solid #d8dde6;padding:4px 6px;text-align:left">Content Writer</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Poster copy</=
+td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Com=
+pleted</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:l=
+eft">exports/posts/</td></tr><tr><td style=3D"border:1px solid #d8dde6;paddin=
+g:4px 6px;text-align:left">T-0011</td><td style=3D"border:1px solid #d8dde6;p=
+adding:4px 6px;text-align:left">Analyst</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">Refresh dashboards</td><td style=3D"bor=
+der:1px solid #d8dde6;padding:4px 6px;text-align:left">Completed</td><td styl=
+e=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">reports/kpis_l=
+atest.json</td></tr><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px=
+;text-align:left">T-0012</td><td style=3D"border:1px solid #d8dde6;padding:4p=
+x 6px;text-align:left">Project Manager</td><td style=3D"border:1px solid #d8d=
+de6;padding:4px 6px;text-align:left">Audit employees</td><td style=3D"border:=
+1px solid #d8dde6;padding:4px 6px;text-align:left">Completed</td><td style=3D=
+"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Ledger tab</td></t=
+r></table>
+<h3>Queued / in progress</h3><p><i>None</i></p>
+<h3>KPIs per employee</h3><table style=3D"border-collapse:collapse;width:100%=
+;font-size:13px"><tr><th style=3D"border:1px solid #d8dde6;padding:4px 6px;te=
+xt-align:left;background:#24395f;color:#fff">Employee</th><th style=3D"border=
+:1px solid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#=
+fff">Completed</th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text=
+-align:left;background:#24395f;color:#fff">In Progress</th><th style=3D"borde=
+r:1px solid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:=
+#fff">Queued</th><th style=3D"border:1px solid #d8dde6;padding:4px 6px;text-a=
+lign:left;background:#24395f;color:#fff">Blocked</th><th style=3D"border:1px =
+solid #d8dde6;padding:4px 6px;text-align:left;background:#24395f;color:#fff">=
+Avg completion (s)</th></tr><tr><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">Project Manager</td><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">1</td><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">1</td><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #=
+d8dde6;padding:4px 6px;text-align:left">0.0</td></tr><tr><td style=3D"border:=
+1px solid #d8dde6;padding:4px 6px;text-align:left">Intake Officer</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">2</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td sty=
+le=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0.0</td></tr>=
+<tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Sc=
+heduler</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left">1</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:=
+left">0.0</td></tr><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6px;=
+text-align:left">Communications Officer</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">2</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">1</td><td style=3D"border:1px solid #d8=
+dde6;padding:4px 6px;text-align:left">0.0</td></tr><tr><td style=3D"border:1p=
+x solid #d8dde6;padding:4px 6px;text-align:left">Parent Support</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">1</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=
+=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">0.0</td></tr><t=
+r><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-align:left">Cont=
+ent Writer</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-ali=
+gn:left">2</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-ali=
+gn:left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-ali=
+gn:left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-ali=
+gn:left">0</td><td style=3D"border:1px solid #d8dde6;padding:4px 6px;text-ali=
+gn:left">0.5</td></tr><tr><td style=3D"border:1px solid #d8dde6;padding:4px 6=
+px;text-align:left">Analyst</td><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">1</td><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">0</td><td style=3D"border:1px solid #d8dde6;padding=
+:4px 6px;text-align:left">0.0</td></tr><tr><td style=3D"border:1px solid #d8d=
+de6;padding:4px 6px;text-align:left">QA Auditor</td><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">1</td><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">0</td><td style=3D"border:1px s=
+olid #d8dde6;padding:4px 6px;text-align:left">0.0</td></tr></table>
+<p style=3D"color:#888;font-size:11px">Sent by the Project Manager agent. Led=
+ger: Google Sheet tab "Ledger".</p></div>
+
+--===============6018581161429384925==--

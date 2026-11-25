@@ -1,0 +1,13 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "slug": "project-manager",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "installed_on": "2026-11-25",
+  "files": {
+    "employee.json": "8a79a4045f751f51",
+    "ROLE.md": "3f59fed9c78580dc",
+    "work-profile.json": "8dca4aed450c6042"
+  },
+  "pending": []
+}

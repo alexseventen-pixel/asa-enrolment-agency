@@ -1,0 +1,13 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "slug": "analyst",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "installed_on": "2026-11-25",
+  "files": {
+    "employee.json": "d8dcaccbc8f42421",
+    "ROLE.md": "6a522f58fe741e5e",
+    "work-profile.json": "086921e557f683bb"
+  },
+  "pending": []
+}

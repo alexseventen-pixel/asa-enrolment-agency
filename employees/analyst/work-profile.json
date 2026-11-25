@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "objective": "Compute KPIs split by program",
+  "reviewer": "project-manager",
+  "routines": {
+    "analyst-refresh": {
+      "kind": "produce",
+      "acceptance": "Output written and logged to the ledger"
+    }
+  }
+}

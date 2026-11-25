@@ -1,0 +1,84 @@
+{
+  "schema": "ai-employee/1",
+  "slug": "project-manager",
+  "name": "Project Manager",
+  "role": "Chief of Staff",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "agency": "ASA Enrolment Agency (AI + Chinese)",
+  "repository": "https://github.com/markfulton/ai-employees (style)",
+  "license": "MIT",
+  "requires": {
+    "python": ">=3.10",
+    "harness": [
+      "python-cli",
+      "streamlit",
+      "grok-bot",
+      "claude-code"
+    ]
+  },
+  "entrypoint": "asa/agents/project_manager.py",
+  "connections": [
+    {
+      "capability": "sheet.write",
+      "providers": [
+        "google-sheets"
+      ],
+      "required": false,
+      "readonly": false
+    },
+    {
+      "capability": "mail.draft",
+      "providers": [
+        "smtp",
+        "gmail"
+      ],
+      "required": false,
+      "readonly": false
+    },
+    {
+      "capability": "db",
+      "providers": [
+        "sqlite"
+      ],
+      "required": false,
+      "readonly": false
+    }
+  ],
+  "routines": [
+    {
+      "id": "pm-plan-day",
+      "days": "mon-fri",
+      "fire": "07:30",
+      "budget": "10 min",
+      "browser": "never"
+    },
+    {
+      "id": "pm-daily-brief",
+      "days": "mon-fri",
+      "fire": "18:00",
+      "budget": "10 min",
+      "browser": "never"
+    }
+  ],
+  "workflow": {
+    "reports_to": "Boss (Oleg)",
+    "hands_to": "All 7 employees"
+  },
+  "guardrails": [
+    "Never send email or post without Boss approval",
+    "Synthetic sample data only in the demo",
+    "Never invent facts: escalate"
+  ],
+  "files": {
+    "kit": [
+      "employee.json",
+      "ROLE.md",
+      "work-profile.json"
+    ],
+    "member": [
+      ".installed.json",
+      "state/**"
+    ]
+  }
+}

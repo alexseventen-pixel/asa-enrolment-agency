@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "objective": "Plan the daily task list and dispatch it",
+  "reviewer": "project-manager",
+  "routines": {
+    "pm-plan-day": {
+      "kind": "produce",
+      "acceptance": "Output written and logged to the ledger"
+    },
+    "pm-daily-brief": {
+      "kind": "produce",
+      "acceptance": "Output written and logged to the ledger"
+    }
+  }
+}

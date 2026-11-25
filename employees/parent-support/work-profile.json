@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "objective": "Categorise parent questions",
+  "reviewer": "project-manager",
+  "routines": {
+    "support-triage": {
+      "kind": "produce",
+      "acceptance": "Output written and logged to the ledger"
+    }
+  }
+}

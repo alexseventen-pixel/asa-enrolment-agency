@@ -1,0 +1,13 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "slug": "scheduler",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "installed_on": "2026-11-25",
+  "files": {
+    "employee.json": "373126f048bc063b",
+    "ROLE.md": "8436af48b0acd413",
+    "work-profile.json": "14cabb3b1d41b36b"
+  },
+  "pending": []
+}

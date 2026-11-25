@@ -1,0 +1,13 @@
+{
+  "schema": "ai-employee-receipt/1",
+  "slug": "communications",
+  "version": "0.1.0",
+  "standard": "1.5",
+  "installed_on": "2026-11-25",
+  "files": {
+    "employee.json": "c16f9e76f99d0506",
+    "ROLE.md": "09b2141cc3e62a03",
+    "work-profile.json": "d083324e49f84417"
+  },
+  "pending": []
+}

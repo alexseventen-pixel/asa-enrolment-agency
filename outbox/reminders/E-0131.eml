@@ -1,0 +1,40 @@
+From: ai-club@example.com
+To: parent074@example.com
+Subject: Reminder: AI Club Lesson 3 on Tue 01 Dec
+Date: Wed, 25 Nov 2026 19:30:23 +0200
+Message-ID: <179562782362.671884.13369005846539686509@asa-agency.local>
+X-ASA-Status: DRAFT - not sent, waiting for Boss approval
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============3871640102584003994=="
+
+--===============3871640102584003994==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Dear Parent Placeholder 074,
+
+A quick reminder: Liam Example has AI Club on Tuesday 01 December at 16:00.
+
+Lesson 3: Bad Data, Bad AI. How biased or messy data breaks a model.
+
+Best regards,
+AI Club team
+Prepared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.
+
+--===============3871640102584003994==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<div style=3D"font-family:Arial,sans-serif;color:#1d2433;max-width:620px"><p>=
+Dear Parent Placeholder 074,</p>
+<p>A quick reminder: <b>Liam Example</b> has <b>AI Club</b> on <b>Tuesday 01 =
+December at 16:00</b>.</p>
+<p>Lesson 3: <b>Bad Data, Bad AI</b>. How biased or messy data breaks a model=
+.</p>
+<p>Best regards,<br>AI Club team</p><p style=3D"color:#888;font-size:11px">Pr=
+epared by ASA Enrolment Agency (AI + Chinese). Sample data, demo only.</p></d=
+iv>
+
+--===============3871640102584003994==--

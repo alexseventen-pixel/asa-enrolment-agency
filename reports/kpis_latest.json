@@ -1,0 +1,122 @@
+{
+  "generated_at": "2026-11-25 19:30:25",
+  "kpis": {
+    "applications_total": 92,
+    "requests_ai": 54,
+    "requests_chinese": 38,
+    "placed_ai": 39,
+    "placed_chinese": 19,
+    "children_in_both": 3,
+    "applications_today": 0,
+    "placed": 58,
+    "waitlist": 20,
+    "qa_issues": 14,
+    "group_fill_pct": 58.0,
+    "attendance_pct": 86.1,
+    "messages_answered": 17,
+    "messages_escalated": 7,
+    "posts_today": 12,
+    "email_drafts": 137
+  },
+  "funnel": {
+    "Applied": 92,
+    "Passed QA": 78,
+    "Placed in group": 58,
+    "Confirmation drafted": 58,
+    "Waitlist": 20,
+    "Needs fix": 13,
+    "Duplicate": 1
+  },
+  "group_fill": [
+    {
+      "group_id": "AI-1",
+      "program": "AI",
+      "band": "7-9",
+      "day": "Mon",
+      "time": "15:30",
+      "capacity": 12,
+      "enrolled": 7
+    },
+    {
+      "group_id": "AI-2",
+      "program": "AI",
+      "band": "7-9",
+      "day": "Wed",
+      "time": "15:30",
+      "capacity": 12,
+      "enrolled": 6
+    },
+    {
+      "group_id": "AI-3",
+      "program": "AI",
+      "band": "10-12",
+      "day": "Tue",
+      "time": "16:00",
+      "capacity": 12,
+      "enrolled": 10
+    },
+    {
+      "group_id": "AI-4",
+      "program": "AI",
+      "band": "10-12",
+      "day": "Thu",
+      "time": "16:00",
+      "capacity": 12,
+      "enrolled": 10
+    },
+    {
+      "group_id": "AI-5",
+      "program": "AI",
+      "band": "13-15",
+      "day": "Fri",
+      "time": "15:00",
+      "capacity": 12,
+      "enrolled": 6
+    },
+    {
+      "group_id": "ZH-1",
+      "program": "ZH",
+      "band": "Beginner 7-10",
+      "day": "Tue",
+      "time": "15:30",
+      "capacity": 8,
+      "enrolled": 3
+    },
+    {
+      "group_id": "ZH-2",
+      "program": "ZH",
+      "band": "Beginner 7-10",
+      "day": "Thu",
+      "time": "15:30",
+      "capacity": 8,
+      "enrolled": 3
+    },
+    {
+      "group_id": "ZH-3",
+      "program": "ZH",
+      "band": "Beginner 11-15",
+      "day": "Mon",
+      "time": "16:30",
+      "capacity": 8,
+      "enrolled": 1
+    },
+    {
+      "group_id": "ZH-4",
+      "program": "ZH",
+      "band": "HSK1",
+      "day": "Wed",
+      "time": "16:30",
+      "capacity": 8,
+      "enrolled": 4
+    },
+    {
+      "group_id": "ZH-5",
+      "program": "ZH",
+      "band": "HSK2-3",
+      "day": "Fri",
+      "time": "16:00",
+      "capacity": 8,
+      "enrolled": 8
+    }
+  ]
+}

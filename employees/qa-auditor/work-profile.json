@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "objective": "Find duplicates",
+  "reviewer": "project-manager",
+  "routines": {
+    "qa-audit": {
+      "kind": "produce",
+      "acceptance": "Output written and logged to the ledger"
+    }
+  }
+}
