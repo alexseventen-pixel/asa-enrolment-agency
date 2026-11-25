@@ -104,7 +104,7 @@ def submit(d: dict, source: str = "Web form") -> dict:
     body = (f"<p>Dear {d['parent_name'].strip()},</p><p>Thank you! We received the application for <b>{d['child_name'].strip()}</b>. "
             f"Your application ID is <b>{app_id}</b>.</p>{lines}<p>{TIMETABLE_NOTE} To change or cancel, reply to this email "
             f"or use the chat on our page with your email and application ID.</p><p>We look forward to seeing {first}!<br>ASA team</p>")
-    email_id = draft(AGENT, "Auto-reply", app_id, d["parent_email"].strip(), f"Application {app_id} received: {first}", body)
+    email_id = draft(AGENT, "Auto-reply", app_id, d["parent_email"].strip(), f"Application {app_id} received: {d['child_name'].strip()}", body)
     log(AGENT, f"New application {app_id} ({source})",
         "; ".join(f"{r['program']}: {r['group'] or 'waitlist'}" for r in results) + f". Auto-reply {email_id} drafted")
     return {"application_id": app_id, "enrolments": results, "email_id": email_id}
