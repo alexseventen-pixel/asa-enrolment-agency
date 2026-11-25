@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS emails (
 );
 CREATE TABLE IF NOT EXISTS invoices (
     invoice_no TEXT PRIMARY KEY, issued_at TEXT, application_id TEXT, enrolment_id TEXT, program TEXT,
-    period TEXT, amount REAL, status TEXT, paid_at TEXT DEFAULT ''
+    period TEXT, amount REAL, status TEXT, paid_at TEXT DEFAULT '',
+    lessons INTEGER DEFAULT 0, unit_price REAL DEFAULT 0, note TEXT DEFAULT ''
 );
 CREATE TABLE IF NOT EXISTS ledger (
     id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT, agent TEXT, action TEXT, result TEXT
@@ -43,6 +44,10 @@ def connect() -> sqlite3.Connection:
     con = sqlite3.connect(DB_PATH, timeout=10)
     con.row_factory = sqlite3.Row
     con.executescript(SCHEMA)
+    cols = {r[1] for r in con.execute("PRAGMA table_info(invoices)")}
+    for col, typ in (("lessons", "INTEGER DEFAULT 0"), ("unit_price", "REAL DEFAULT 0"), ("note", "TEXT DEFAULT ''")):
+        if col not in cols:
+            con.execute(f"ALTER TABLE invoices ADD COLUMN {col} {typ}")
     return con
 
 

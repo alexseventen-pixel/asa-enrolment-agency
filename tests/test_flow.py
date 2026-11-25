@@ -60,6 +60,8 @@ def test_flow():
     assert accountant.mark_paid(no)
     assert accountant.summary()["total"]["paid"] > before
     assert "Paid" in accountant.invoice_html(no)
+    m = accountant.issue_manual(aid + "-AI", 3, 12.5, "2026-12", "lessons 1 to 3")
+    assert m["amount"] == 37.5 and "37.50" in accountant.invoice_html(m["invoice_no"]) and "lessons 1 to 3" in accountant.invoice_html(m["invoice_no"])
 
 
 if __name__ == "__main__":

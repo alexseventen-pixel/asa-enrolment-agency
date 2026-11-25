@@ -102,6 +102,17 @@ async def api_invoices(request: Request):
 
 
 @admin
+async def api_invoice_manual(request: Request):
+    b = await request.json()
+    try:
+        res = await run_in_threadpool(accountant.issue_manual, str(b.get("enrolment_id", "")), int(b.get("lessons", 0)),
+                                      float(b.get("unit_price", 0)), str(b.get("period", "")), str(b.get("note", "")))
+    except (ValueError, TypeError) as exc:
+        return JSONResponse({"error": str(exc)}, status_code=400)
+    return JSONResponse(res)
+
+
+@admin
 async def api_paid(request: Request):
     no = request.path_params["no"]
     return JSONResponse({"invoice_no": no, "paid": await run_in_threadpool(accountant.mark_paid, no)})
@@ -145,6 +156,7 @@ app = st.App(str(ROOT / "dashboard" / "app.py"), routes=[
     Route("/api/support", api_support, methods=["POST"]),
     Route("/api/reminders/run", api_reminders, methods=["POST"]),
     Route("/api/invoices/run", api_invoices, methods=["POST"]),
+    Route("/api/invoices/manual", api_invoice_manual, methods=["POST"]),
     Route("/api/invoices/{no}/paid", api_paid, methods=["POST"]),
     Route("/api/summary", api_summary, methods=["GET"]),
     Route("/api/outbox", api_outbox, methods=["GET"]),

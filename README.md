@@ -10,14 +10,14 @@ Live demo: https://asa-enrolment-agency.onrender.com (dashboard) and https://asa
 | 1 | **Applications** | Saves each application (child, parent, programme, level, days), places the child in a group by age or level and preferred days (never two activities on one day, waiting list when full), and immediately prepares the auto-reply confirmation email with the application ID. | Form on `/apply`, the chat, or "Add an application by hand" in tab 1 |
 | 2 | **Support** | Chat for parents: answers questions (prices, timetable, levels, ages, lessons, location), enrols a child step by step, and after checking **email + application ID** changes days, changes the Chinese level, or cancels. Every change updates the database, drafts a confirmation email, and offers freed places to the waiting list. | Chat bubble on `/apply`, tab 2 in the dashboard |
 | 3 | **Reminders** | For every child with a lesson tomorrow, prepares a reminder email with day, time, group and lesson topic. No duplicates. | Button "Generate tomorrow's reminders" in tab 3 |
-| 4 | **Accountant** | Issues one monthly invoice per active enrolment (number, amount, Unpaid/Paid), emails it as a draft, marks paid, gives a printable invoice, and shows the summary: enrolments, invoiced, paid, outstanding per programme. | Tab 4 |
+| 4 | **Accountant** | Issues an invoice for a chosen student: number of lessons x price per lesson (editable, default is a placeholder to be confirmed), or one monthly invoice per active enrolment (number, amount, Unpaid/Paid), emails it as a draft, marks paid, gives a printable invoice, and shows the summary: enrolments, invoiced, paid, outstanding per programme. | Tab 4 |
 
 Plus an **Outbox** tab (every email, with preview) and a **Ledger** tab (time, agent, action, result).
 
 ## Important
 
 * **No email is sent.** `ASA_ALLOW_SEND=no`: all emails are drafts in the Outbox and `.eml` files.
-* **Placeholders, to be confirmed:** prices (AI Club 45 EUR, Chinese 40 EUR per month, set in `asa/config.py` or env), the timetable, the room, payment details, Chinese lesson topics.
+* **Placeholders, to be confirmed:** prices (AI Club 45 EUR, Chinese 40 EUR per month; per lesson 12 EUR and 10 EUR, set in `asa/config.py` or env), the timetable, the room, payment details, Chinese lesson topics.
 * **Demo data is synthetic** ("Demo Child ...", `@example.com`). Load it with the sidebar button or `ASA_DEMO=yes`.
 * The support chat is rule based (no API key needed), so it gives the same reliable answer every time.
 
@@ -41,6 +41,7 @@ On Render the start command is `python scripts/run_pipeline.py --reset && ...` w
 | POST | `/api/support` | `{"session_id": "...", "message": "..."}` returns `{"reply": "..."}` |
 | POST | `/api/reminders/run` | Reminders agent for tomorrow |
 | POST | `/api/invoices/run` | Accountant: invoices for this month |
+| POST | `/api/invoices/manual` | `{"enrolment_id": "ASA-0001-AI", "lessons": 4, "unit_price": 12, "period": "2026-11", "note": ""}` |
 | POST | `/api/invoices/{no}/paid` | mark paid |
 | GET | `/api/summary`, `/api/outbox`, `/api/ledger`, `/api/enrolment/{id}`, `/invoice/{no}` | read data |
 

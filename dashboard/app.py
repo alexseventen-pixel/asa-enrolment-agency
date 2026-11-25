@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from asa import db  # noqa: E402
 from asa.agents import accountant, applications, reminders, support  # noqa: E402
-from asa.config import AGENCY_NAME, CURRENCY, DAY_NAMES, DAYS, GROUPS, LEVELS, PRICE_NOTE, PRICES, PROGRAMS, TIMETABLE_NOTE  # noqa: E402
+from asa.config import AGENCY_NAME, CURRENCY, LESSON_PRICES, DAY_NAMES, DAYS, GROUPS, LEVELS, PRICE_NOTE, PRICES, PROGRAMS, TIMETABLE_NOTE  # noqa: E402
 from asa.demo import load_demo  # noqa: E402
 
 st.set_page_config(page_title=AGENCY_NAME, page_icon="🎓", layout="wide")
@@ -149,7 +149,31 @@ with tabs[3]:
     st.subheader("Accountant agent")
     st.caption(f"Issues one monthly invoice per active enrolment and emails it (draft). Fees: AI Club {PRICES['AI']:.0f} {CURRENCY}, "
                f"Chinese {PRICES['ZH']:.0f} {CURRENCY}{PRICE_NOTE}.")
-    if st.button("Issue invoices for this month", type="primary"):
+    with st.container(border=True):
+        st.markdown("**Issue an invoice for a number of lessons**")
+        opts = enr[enr.status != "Cancelled"].sort_values("enrolment_id") if len(enr) else enr
+        if len(opts):
+            labels = {r.enrolment_id: f"{r.application_id} {r.child_name}, {PROGRAMS[r.program]}" for r in opts.itertuples()}
+            a, b, c3 = st.columns([2, 1, 1])
+            eid = a.selectbox("Student and programme", list(labels), format_func=labels.get, key="mi-enr")
+            prog = eid.rsplit("-", 1)[1]
+            lessons = b.number_input("Number of lessons", 1, 100, 4, key="mi-lessons")
+            price = c3.number_input(f"Price per lesson, {CURRENCY}", 0.0, 1000.0, LESSON_PRICES[prog], 0.5, key=f"mi-price-{prog}",
+                                    help="Default from config: placeholder, to be confirmed")
+            a2, b2 = st.columns([1, 2])
+            period = a2.text_input("Period", accountant.now().strftime("%Y-%m"), key="mi-period")
+            note = b2.text_input("Note (optional)", key="mi-note", placeholder="e.g. lessons 1 to 4")
+            st.markdown(f"Total: **{lessons} x {price:.2f} = {lessons * price:.2f} {CURRENCY}**"
+                        + ("" if price != LESSON_PRICES[prog] or not PRICE_NOTE else f" (price{PRICE_NOTE})"))
+            if st.button("Issue invoice", type="primary", key="mi-go"):
+                r = accountant.issue_manual(eid, lessons, price, period, note)
+                st.session_state.mi_done = f"Invoice {r['invoice_no']} issued: {r['amount']:.2f} {CURRENCY}. Email {r['email_id']} prepared."
+                st.rerun()
+            if st.session_state.get("mi_done"):
+                st.success(st.session_state.pop("mi_done"))
+        else:
+            st.info("No students yet.")
+    if st.button("Issue monthly invoices for all active enrolments"):
         r = accountant.issue()
         st.success(f"{r['period']}: {len(r['created'])} new invoice(s), {r['total']:.2f} {CURRENCY}.")
         st.rerun()

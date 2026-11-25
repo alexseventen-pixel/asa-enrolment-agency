@@ -24,7 +24,8 @@
 * For each active enrolment with a lesson tomorrow: email with day, time, group, lesson number and topic. Safe to run twice.
 
 ### 4. Accountant: invoices and summaries
-* "Issue invoices for this month": one invoice per active enrolment, number `INV-YYYYMM-001`, amount from the price list, status Unpaid, emailed as a draft.
+* "Issue an invoice for a number of lessons": pick the student and programme, enter lessons and price per lesson (default placeholder, to be confirmed), optional period and note; total = lessons x price.
+* "Issue monthly invoices": one invoice per active enrolment, number `INV-YYYYMM-001`, amount from the price list, status Unpaid, emailed as a draft.
 * "Mark paid" / "Mark unpaid", printable invoice (HTML, print to PDF).
 * Summary per programme: active, waiting list, cancelled, invoiced, paid, outstanding.
 

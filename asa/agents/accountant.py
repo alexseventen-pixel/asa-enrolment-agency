@@ -23,8 +23,8 @@ def issue(period: str | None = None) -> dict:
         with session() as con:
             no = next_id(con, "invoices", "invoice_no", f"INV-{period.replace('-', '')}-", 3)
             amount = PRICES[e["program"]]
-            con.execute("INSERT INTO invoices VALUES (?,?,?,?,?,?,?,?,?)",
-                        (no, ts(), e["application_id"], e["enrolment_id"], e["program"], period, amount, "Unpaid", ""))
+            con.execute("INSERT INTO invoices (invoice_no, issued_at, application_id, enrolment_id, program, period, amount, status)"
+                        " VALUES (?,?,?,?,?,?,?,?)", (no, ts(), e["application_id"], e["enrolment_id"], e["program"], period, amount, "Unpaid"))
         body = (f"<p>Dear {e['parent_name']},</p><p>Please find invoice <b>{no}</b> for <b>{e['child_name']}</b>, "
                 f"{PROGRAMS[e['program']]}, {period}: <b>{amount:.2f} {CURRENCY}</b>{PRICE_NOTE}.</p>"
                 "<p>Payment details are to be confirmed by the school office.</p><p>ASA team</p>")
@@ -34,6 +34,34 @@ def issue(period: str | None = None) -> dict:
     total = sum(c["amount"] for c in created)
     log(AGENT, f"Issued invoices for {period}", f"{len(created)} invoice(s), {total:.2f} {CURRENCY}, emailed as drafts")
     return {"period": period, "created": created, "total": total}
+
+
+def issue_manual(enrolment_id: str, lessons: int, unit_price: float, period: str = "", note: str = "") -> dict:
+    """Invoice for a chosen number of lessons x price per lesson."""
+    lessons, unit_price = int(lessons), round(float(unit_price), 2)
+    if lessons < 1 or unit_price < 0:
+        raise ValueError("Lessons must be at least 1 and the price cannot be negative.")
+    period = (period or now().strftime("%Y-%m")).strip()[:20]
+    note = (note or "").strip()[:200]
+    with session() as con:
+        e = con.execute("SELECT e.*, s.child_name, s.parent_name, s.parent_email FROM enrolments e JOIN students s USING (application_id)"
+                        " WHERE e.enrolment_id = ?", (enrolment_id,)).fetchone()
+        if not e:
+            raise ValueError("Unknown enrolment.")
+        no = next_id(con, "invoices", "invoice_no", f"INV-{now():%Y%m}-", 3)
+        amount = round(lessons * unit_price, 2)
+        con.execute("INSERT INTO invoices (invoice_no, issued_at, application_id, enrolment_id, program, period, amount, status,"
+                    " lessons, unit_price, note) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                    (no, ts(), e["application_id"], enrolment_id, e["program"], period, amount, "Unpaid", lessons, unit_price, note))
+    body = (f"<p>Dear {e['parent_name']},</p><p>Please find invoice <b>{no}</b> for <b>{e['child_name']}</b>, "
+            f"{PROGRAMS[e['program']]}, {period}: {lessons} lesson(s) x {unit_price:.2f} {CURRENCY} = <b>{amount:.2f} {CURRENCY}</b>"
+            f"{PRICE_NOTE}.</p>" + (f"<p>Note: {html.escape(note)}</p>" if note else "")
+            + "<p>Payment details are to be confirmed by the school office.</p><p>ASA team</p>")
+    eid = draft(AGENT, "Invoice", e["application_id"], e["parent_email"], f"Invoice {no}: {PROGRAMS[e['program']]} {period}", body)
+    log(AGENT, f"Issued invoice {no} for {e['application_id']}",
+        f"{PROGRAMS[e['program']]}: {lessons} x {unit_price:.2f} = {amount:.2f} {CURRENCY}. Email {eid} drafted")
+    return {"invoice_no": no, "application_id": e["application_id"], "child": e["child_name"], "program": PROGRAMS[e["program"]],
+            "lessons": lessons, "unit_price": unit_price, "amount": amount, "email_id": eid}
 
 
 def mark_paid(invoice_no: str, paid: bool = True) -> bool:
@@ -48,7 +76,7 @@ def mark_paid(invoice_no: str, paid: bool = True) -> bool:
 
 def invoices():
     return df("SELECT i.invoice_no, i.issued_at, i.application_id, s.child_name, s.parent_email, i.program, i.period,"
-              " i.amount, i.status, i.paid_at FROM invoices i JOIN students s USING (application_id) ORDER BY i.invoice_no")
+              " i.lessons, i.unit_price, i.amount, i.status, i.paid_at, i.note FROM invoices i JOIN students s USING (application_id) ORDER BY i.invoice_no")
 
 
 def summary() -> dict:
@@ -78,6 +106,12 @@ def invoice_html(invoice_no: str) -> str | None:
     if not r:
         return None
     e = {k: html.escape(str(r[k])) for k in r.keys()}
+    if r["lessons"]:
+        rows = (f"<tr><td>{PROGRAMS[r['program']]}, {e['period']}</td><td>{r['lessons']}</td>"
+                f"<td>{r['unit_price']:.2f} {CURRENCY}</td><td>{r['amount']:.2f} {CURRENCY}</td></tr>")
+    else:
+        rows = f"<tr><td>{PROGRAMS[r['program']]}, monthly fee, {e['period']}</td><td>month</td><td></td><td>{r['amount']:.2f} {CURRENCY}</td></tr>"
+    note = f"<p><b>Note:</b> {e['note']}</p>" if r["note"] else ""
     colour = {"Paid": "#1a7f37", "Unpaid": "#b54708", "Void": "#888"}.get(r["status"], "#333")
     return f"""<!doctype html><html><head><meta charset="utf-8"><title>Invoice {e['invoice_no']}</title>
 <style>body{{font-family:Arial,sans-serif;max-width:720px;margin:40px auto;color:#1d2433;padding:0 16px}}
@@ -88,9 +122,9 @@ table{{width:100%;border-collapse:collapse;margin:24px 0}}td,th{{border-bottom:1
 <p><b>{AGENCY_NAME}</b><br>{SCHOOL}<br>{CLUB_EMAIL}</p>
 <p><b>Bill to:</b> {e['parent_name']} ({e['parent_email']})<br><b>Student:</b> {e['child_name']} ({e['application_id']})<br>
 <b>Issued:</b> {e['issued_at'][:10]} &nbsp; <b>Period:</b> {e['period']}</p>
-<table><tr><th>Description</th><th>Amount</th></tr>
-<tr><td>{PROGRAMS[r['program']]}, monthly fee, {e['period']}</td><td>{r['amount']:.2f} {CURRENCY}</td></tr>
-<tr><th>Total</th><th>{r['amount']:.2f} {CURRENCY}</th></tr></table>
+<table><tr><th>Description</th><th>Lessons</th><th>Price per lesson</th><th>Amount</th></tr>
+{rows}
+<tr><th>Total</th><th></th><th></th><th>{r['amount']:.2f} {CURRENCY}</th></tr></table>{note}
 <p>{'Paid on ' + e['paid_at'][:10] if r['status'] == 'Paid' else 'Payment details: to be confirmed by the school office.'}</p>
 <p class="note">Prices{PRICE_NOTE}. Generated by the Accountant agent.</p>
 <button class="np" onclick="window.print()">Print / Save as PDF</button></body></html>"""

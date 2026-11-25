@@ -24,6 +24,8 @@ PROGRAMS = {"AI": "AI Club", "ZH": "Chinese"}
 
 # Monthly fees: PLACEHOLDERS, to be confirmed by the school.
 PRICES = {"AI": float(os.environ.get("ASA_PRICE_AI", "45")), "ZH": float(os.environ.get("ASA_PRICE_ZH", "40"))}
+# Price per single lesson for manual invoices: PLACEHOLDERS, to be confirmed (editable in the form).
+LESSON_PRICES = {"AI": float(os.environ.get("ASA_LESSON_PRICE_AI", "12")), "ZH": float(os.environ.get("ASA_LESSON_PRICE_ZH", "10"))}
 PRICES_CONFIRMED = os.environ.get("ASA_PRICES_CONFIRMED", "no").lower() == "yes"
 PRICE_NOTE = "" if PRICES_CONFIRMED else " (placeholder, to be confirmed)"
 
